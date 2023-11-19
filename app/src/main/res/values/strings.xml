@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">MyECF</string>
+    <string name="error_message_something_wrong">Something went wrong!</string>
+    <string name="text_login">LOGIN</string>
+    <string name="hint_username">Username</string>
+    <string name="hint_password">Password</string>
+    <string name="text_version">Version</string>
+    <string name="dialog_exit_title">EXIT</string>
+    <string name="dialog_exit_text">Are you sure you want to exit?</string>
+    <string name="all_yes">YES</string>
+    <string name="all_cancel">CANCEL</string>
+    <string name="error_message_field_required">This field is required!</string>
 </resources>
