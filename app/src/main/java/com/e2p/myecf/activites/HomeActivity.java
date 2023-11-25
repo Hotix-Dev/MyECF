@@ -85,12 +85,15 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Fragment currFrag = getSupportFragmentManager().findFragmentById(R.id.drawer_layout);
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)){
-            drawerLayout.closeDrawer(GravityCompat.START);
-        }
-        else {
-            super.onBackPressed();
+        try {
+            if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                drawerLayout.closeDrawer(GravityCompat.START);
+            } else {
+                startExitDialog();
+            }
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+            showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_something_wrong));
         }
     }
 
@@ -115,7 +118,6 @@ public class HomeActivity extends AppCompatActivity {
 
         navView.setNavigationItemSelectedListener(item -> {
             FContent = null;
-            showSnackbar(findViewById(android.R.id.content), item.getOrder() + "");
             switch (item.getOrder()) {
 
                 case 1:
@@ -145,5 +147,36 @@ public class HomeActivity extends AppCompatActivity {
         transaction.replace(R.id.fl_home_content, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    //This method show exit dialog.
+    private void startExitDialog() {
+
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
+
+        View mView = getLayoutInflater().inflate(R.layout.dialog_exit, null);
+        AppCompatButton btnYes = (AppCompatButton) mView.findViewById(R.id.btn_dialog_exit_yes);
+        AppCompatButton btnCancel = (AppCompatButton) mView.findViewById(R.id.btn_dialog_exit_cancel);
+
+        mBuilder.setView(mView);
+        mBuilder.setCancelable(false);
+        final AlertDialog dialog = mBuilder.create();
+        dialog.show();
+
+        btnYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                dialog.dismiss();
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
     }
 }
