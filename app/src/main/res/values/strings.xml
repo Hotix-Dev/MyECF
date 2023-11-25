@@ -10,4 +10,11 @@
     <string name="all_yes">YES</string>
     <string name="all_cancel">CANCEL</string>
     <string name="error_message_field_required">This field is required!</string>
+    <string name="menu_my_statements">My Statements</string>
+    <string name="menu_my_messages">My Messages</string>
+    <string name="menu_my_contacts">My Contacts</string>
+    <string name="text_home">Home</string>
+    <!-- to toggle the open close button of the navigation drawer -->
+    <string name="nav_open">Open</string>
+    <string name="nav_close">Close</string>
 </resources>
