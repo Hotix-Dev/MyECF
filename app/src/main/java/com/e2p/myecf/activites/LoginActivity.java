@@ -1,5 +1,7 @@
 package com.e2p.myecf.activites;
 
+import static com.e2p.myecf.helpers.ConstantConfig.ALL_CLIENTS;
+import static com.e2p.myecf.helpers.ConstantConfig.SELECTED_CLIENT;
 import static com.e2p.myecf.helpers.Utils.showSnackbar;
 
 import androidx.appcompat.app.AlertDialog;
@@ -26,6 +28,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.e2p.myecf.R;
 import com.e2p.myecf.helpers.InputValidation;
 import com.e2p.myecf.helpers.MySettings;
+import com.e2p.myecf.models.Client;
 import com.e2p.myecf.views.kbv.KenBurnsView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -126,17 +129,29 @@ public class LoginActivity extends AppCompatActivity {
                 try {
                     btnLogin.setEnabled(false);
                     if (inputTextValidation()) {
-                        Intent i = new Intent(getApplicationContext(), HomeActivity.class);
-                        startActivity(i);
-                        overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
-                        finish();
+                        SELECTED_CLIENT = null;
+
+                        for(Client client : ALL_CLIENTS) {
+                                if(client.getCode().trim().equals(etUsername.getText().toString().toUpperCase().trim())) {
+                                    SELECTED_CLIENT = client;
+                                    break;
+                                }
+                        }
+
+                        if (SELECTED_CLIENT != null) {
+                            Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
+                            startActivity(i);
+                            overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+                            finish();
+                        } else {
+                            showSnackbar(findViewById(android.R.id.content), getString(R.string.warning_message_client_do_not_exist));
+                        }
                     }
                 } catch (Exception e) {
                     Log.e(TAG, e.toString());
-                }
-                finally {
-                    btnLogin.setEnabled(true);
                     showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_something_wrong));
+                } finally {
+                    btnLogin.setEnabled(true);
                 }
             }
         });
@@ -156,9 +171,9 @@ public class LoginActivity extends AppCompatActivity {
             return false;
         }
 
-        if (!mInputValidation.isInputEditTextFilled(etPassword, ilPassword, getString(R.string.error_message_field_required))) {
-            return false;
-        }
+//        if (!mInputValidation.isInputEditTextFilled(etPassword, ilPassword, getString(R.string.error_message_field_required))) {
+//            return false;
+//        }
         //Return true if all the inputs are valid
         return true;
 

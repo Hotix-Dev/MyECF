@@ -1,14 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.StatementsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/menu_my_statements" />
+        android:orientation="vertical">
 
-</FrameLayout>
+        <!-- Exercice -->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:text="@string/text_exercice"
+            android:textColor="@color/colorSecondaryDark"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/sp_statement_exercice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_6sdp"
+            android:paddingStart="@dimen/_10sdp"
+            android:paddingEnd="@dimen/_10sdp"
+            android:background="@color/white"
+            android:spinnerMode="dropdown"/>
+
+        <!-- Client -->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:text="@string/text_client"
+            android:textColor="@color/colorSecondaryDark"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/il_statement_client_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="@dimen/_6sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:layout_toStartOf="@id/ibtn_statement_client_code"
+                app:hintTextAppearance="@style/MyHintTextStyle">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_statement_client_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_code"
+                    android:inputType="text"
+                    android:theme="@style/MyEditTextStyle" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/ibtn_statement_client_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="@dimen/_6sdp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:tint="@color/colorPrimaryDark"
+                app:srcCompat="@drawable/ic_person_search_24"/>
+
+        </RelativeLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/il_statement_client_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_margin="@dimen/_6sdp"
+            app:hintTextAppearance="@style/MyHintTextStyle">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_statement_client_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_name"
+                android:inputType="text"
+                android:theme="@style/MyEditTextStyle" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+        <!-- Type -->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:text="@string/text_type"
+            android:textColor="@color/colorSecondaryDark"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold" />
+
+        <!-- Type List -->
+        <ListView
+            android:id="@+id/lv_statement_types"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/_3sdp"
+            android:divider="@color/colorPrimaryDark"
+            android:dividerHeight="@dimen/_1sdp"
+            android:drawSelectorOnTop="true" />
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+</RelativeLayout>

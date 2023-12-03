@@ -17,4 +17,14 @@
     <!-- to toggle the open close button of the navigation drawer -->
     <string name="nav_open">Open</string>
     <string name="nav_close">Close</string>
+    <string name="text_exercice">Exercice</string>
+    <string name="hint_code">Code</string>
+    <string name="text_client">Client</string>
+    <string name="hint_name">Name</string>
+    <string name="text_type">Type</string>
+    <string name="msg_loading_data">Loading Data</string>
+    <string name="warning_message_client_do_not_exist">Client Do Not Exist</string>
+    <string name="loading">Loading</string>
+    <string name="no_item_to_show">No Items To Show</string>
+    <string name="refresh">Refresh</string>
 </resources>

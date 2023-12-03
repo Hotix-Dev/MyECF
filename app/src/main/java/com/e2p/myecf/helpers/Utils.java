@@ -91,4 +91,11 @@ public final class Utils {
         v.startAnimation(a);
     }
 
+    public static int getImage(Context context, String imageName) {
+
+        int drawableResourceId = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
+
+        return drawableResourceId;
+    }
+
 }

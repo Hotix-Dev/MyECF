@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_100"
+    tools:context=".activites.StatementsActivity">
+
+    <!-- ToolBar -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <include layout="@layout/include_toolbar" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/ll_statements_filter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appbar"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rl_statements_filter"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_130sdp"
+            android:background="@color/grey_100">
+
+            <!-- Exercice -->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_statement_filter_exercice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_6sdp"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="@dimen/_6sdp"
+                android:text="@string/text_exercice"
+                android:textColor="@color/colorSecondaryDark"
+                android:textSize="@dimen/_12ssp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/sp_statement_filter_exercice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/tv_statement_filter_exercice"
+                android:layout_margin="@dimen/_3sdp"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingEnd="@dimen/_10sdp"
+                android:spinnerMode="dropdown"/>
+
+            <!-- Client -->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_statement_filter_client"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_6sdp"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="@dimen/_6sdp"
+                android:layout_below="@+id/sp_statement_filter_exercice"
+                android:text="@string/text_client"
+                android:textColor="@color/colorSecondaryDark"
+                android:textSize="@dimen/_12ssp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/sp_statement_filter_client"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/tv_statement_filter_client"
+                android:layout_margin="@dimen/_3sdp"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingEnd="@dimen/_10sdp"
+                android:spinnerMode="dropdown"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_20sdp">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/ibtn_collaps_filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:tint="@color/colorPrimary"
+                app:srcCompat="@drawable/ic_keyboard_arrow_up_black_24dp" />
+
+        </RelativeLayout>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <RelativeLayout
+        android:id="@+id/rl_statements_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ll_statements_filter">
+
+        <!-- Progress View -->
+        <include layout="@layout/include_loading_view" />
+
+        <!-- ListView -->
+        <ListView
+            android:id="@+id/lv_statements"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/colorPrimaryDark"
+            android:dividerHeight="1px"
+            android:drawSelectorOnTop="true"
+            android:groupIndicator="@drawable/group_indicator_selector" />
+
+        <!-- Empty View -->
+        <include layout="@layout/include_empty_list_view" />
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>
