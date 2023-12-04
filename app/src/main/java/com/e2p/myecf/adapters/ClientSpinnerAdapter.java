@@ -46,7 +46,7 @@ public class ClientSpinnerAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         view = inflter.inflate(R.layout.spinner_simple_row_item, null);
         AppCompatTextView names = (AppCompatTextView) view.findViewById(R.id.spinner_simple_row_tv);
-        names.setText(clients.get(i).getCode());
+        names.setText(clients.get(i).getRaison_social());
         return view;
     }
 }

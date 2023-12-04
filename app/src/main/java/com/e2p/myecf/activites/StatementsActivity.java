@@ -76,6 +76,12 @@ public class StatementsActivity extends AppCompatActivity {
 
         try {
             listView.setEnabled(true);
+
+            if (mySettings.getFilterCollapsed()) {
+                collapse(rlFilter);
+                ibCollaps.setImageResource(R.drawable.ic_keyboard_arrow_down_black_24dp);
+            }
+
         } catch (Exception e) {
             Log.e(TAG, e.toString());
             showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_something_wrong));
@@ -156,23 +162,23 @@ public class StatementsActivity extends AppCompatActivity {
 
     private void loadeStatementss() {
 
-        String URL = "Client/GetDeclarations?";
-        double dID =  SELECTED_CLIENT.getId();
-        int ID = (int)dID;
-        RetrofitInterface service = RetrofitClient.getClientApi().create(RetrofitInterface.class);
-        Call<ArrayList<Statement>> apiCall = service.getAllStatementsQuery(URL, "-1", ID +"", "2023", "2023");
-
         progressView.setVisibility(View.VISIBLE);
         emptyListView.setVisibility(View.GONE);
+
+        String URL = "Client/GetDeclarations?";
+        RetrofitInterface service = RetrofitClient.getClientApi().create(RetrofitInterface.class);
+        Call<ArrayList<Statement>> apiCall = service.getAllStatementsQuery(URL, "1",  "192", "2023", "2023");
+
         apiCall.enqueue(new Callback<ArrayList<Statement>>() {
             @Override
             public void onResponse(Call<ArrayList<Statement>> call, Response<ArrayList<Statement>> response) {
                 progressView.setVisibility(View.GONE);
                 if (response.raw().code() == 200) {
 
-                    ALL_STATEMENTS = response.body();
+                    //ALL_STATEMENTS = response.body();
 
                 } else {
+                    emptyListView.setVisibility(View.VISIBLE);
                     showSnackbar(findViewById(android.R.id.content), response.message());
                 }
             }
@@ -180,6 +186,7 @@ public class StatementsActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ArrayList<Statement>> call, Throwable t) {
                 progressView.setVisibility(View.GONE);
+                emptyListView.setVisibility(View.VISIBLE);
                 listView.setEmptyView(findViewById(R.id.empty_list_view));
             }
         });

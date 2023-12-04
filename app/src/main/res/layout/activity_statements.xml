@@ -18,30 +18,82 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/ll_statements_filter"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_statements_filter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/appbar"
-        android:orientation="vertical">
+        android:layout_marginStart="@dimen/_2sdp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="@dimen/_2sdp"
+        android:layout_marginBottom="@dimen/_2sdp"
+        app:cardCornerRadius="@dimen/_5sdp">
+
+        <RelativeLayout
+            android:id="@+id/rl_statements_title_filter"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_gravity="top"
+            android:background="@color/grey_200">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_statements_filter"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_alignParentStart="true"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:tint="@color/colorPrimaryDark"
+                app:srcCompat="@drawable/ic_filter_list_32" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="@dimen/_80sdp"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:layout_marginEnd="@dimen/_6sdp"
+                android:layout_marginBottom="@dimen/_6sdp"
+                android:gravity="start"
+                android:text="@string/text_filter"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/_13ssp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/ibtn_collaps_filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:tint="@color/colorPrimaryDark"
+                app:srcCompat="@drawable/ic_keyboard_arrow_down_black_24dp" />
+
+        </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/rl_statements_filter"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_130sdp"
-            android:background="@color/grey_100">
+            android:layout_height="@dimen/_125sdp"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:background="@color/grey_200">
 
             <!-- Exercice -->
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_statement_filter_exercice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
                 android:layout_marginStart="@dimen/_6sdp"
                 android:layout_marginTop="@dimen/_6sdp"
-                android:layout_alignParentStart="true"
                 android:layout_marginBottom="@dimen/_6sdp"
                 android:text="@string/text_exercice"
-                android:textColor="@color/colorSecondaryDark"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/_12ssp"
                 android:textStyle="bold" />
 
@@ -49,25 +101,25 @@
                 android:id="@+id/sp_statement_filter_exercice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:layout_below="@+id/tv_statement_filter_exercice"
+                android:layout_alignParentStart="true"
                 android:layout_margin="@dimen/_3sdp"
                 android:paddingStart="@dimen/_10sdp"
                 android:paddingEnd="@dimen/_10sdp"
-                android:spinnerMode="dropdown"/>
+                android:spinnerMode="dropdown" />
 
             <!-- Client -->
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_statement_filter_client"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/sp_statement_filter_exercice"
+                android:layout_alignParentStart="true"
                 android:layout_marginStart="@dimen/_6sdp"
                 android:layout_marginTop="@dimen/_6sdp"
-                android:layout_alignParentStart="true"
                 android:layout_marginBottom="@dimen/_6sdp"
-                android:layout_below="@+id/sp_statement_filter_exercice"
                 android:text="@string/text_client"
-                android:textColor="@color/colorSecondaryDark"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/_12ssp"
                 android:textStyle="bold" />
 
@@ -75,37 +127,23 @@
                 android:id="@+id/sp_statement_filter_client"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
                 android:layout_below="@+id/tv_statement_filter_client"
+                android:layout_alignParentStart="true"
                 android:layout_margin="@dimen/_3sdp"
                 android:paddingStart="@dimen/_10sdp"
                 android:paddingEnd="@dimen/_10sdp"
-                android:spinnerMode="dropdown"/>
+                android:spinnerMode="dropdown" />
 
         </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_20sdp">
+    </androidx.cardview.widget.CardView>
 
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/ibtn_collaps_filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:tint="@color/colorPrimary"
-                app:srcCompat="@drawable/ic_keyboard_arrow_up_black_24dp" />
-
-        </RelativeLayout>
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <RelativeLayout
         android:id="@+id/rl_statements_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/ll_statements_filter">
+        android:layout_below="@+id/cv_statements_filter">
 
         <!-- Progress View -->
         <include layout="@layout/include_loading_view" />
@@ -124,7 +162,6 @@
         <include layout="@layout/include_empty_list_view" />
 
     </RelativeLayout>
-
 
 
 </RelativeLayout>

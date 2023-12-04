@@ -11,7 +11,7 @@ public class Statement {
     @SerializedName("grpCode")
     @Expose
     private String grpCode;
-    @SerializedName("grpCode")
+    @SerializedName("grpName")
     @Expose
     private String grpName;
     @SerializedName("Column1")

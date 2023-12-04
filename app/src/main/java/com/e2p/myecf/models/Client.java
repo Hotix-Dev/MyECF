@@ -5,20 +5,43 @@ import com.google.gson.annotations.SerializedName;
 
 public class Client {
 
+    @SerializedName("Forme Juridique")
+    @Expose
+    private String forme_juridique;
     @SerializedName("tiers_id")
     @Expose
     private Double id;
     @SerializedName("Code")
     @Expose
     private String code;
-    @SerializedName("Raison")
+    @SerializedName("Raison Social")
     @Expose
-    private String raison;
+    private String raison_social;
+    @SerializedName("responsable")
+    @Expose
+    private String responsable;
+    @SerializedName("GSM")
+    @Expose
+    private String GSM;
 
-    public Client(Double id, String code, String raison) {
+    public Client() {
+    }
+
+    public Client(String forme_juridique, Double id, String code, String raison_social, String responsable, String GSM) {
+        this.forme_juridique = forme_juridique;
         this.id = id;
         this.code = code;
-        this.raison = raison;
+        this.raison_social = raison_social;
+        this.responsable = responsable;
+        this.GSM = GSM;
+    }
+
+    public String getForme_juridique() {
+        return forme_juridique;
+    }
+
+    public void setForme_juridique(String forme_juridique) {
+        this.forme_juridique = forme_juridique;
     }
 
     public Double getId() {
@@ -37,12 +60,27 @@ public class Client {
         this.code = code;
     }
 
-    public String getRaison() {
-        return raison;
+    public String getRaison_social() {
+        return raison_social;
     }
 
-    public void setRaison(String raison) {
-        this.raison = raison;
+    public void setRaison_social(String raison_social) {
+        this.raison_social = raison_social;
     }
 
+    public String getResponsable() {
+        return responsable;
+    }
+
+    public void setResponsable(String responsable) {
+        this.responsable = responsable;
+    }
+
+    public String getGSM() {
+        return GSM;
+    }
+
+    public void setGSM(String GSM) {
+        this.GSM = GSM;
+    }
 }
