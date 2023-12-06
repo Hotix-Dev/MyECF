@@ -18,7 +18,10 @@ public class ConstantConfig {
 
     public static ArrayList<Statement> ALL_STATEMENTS = null;
     public static ArrayList<Client> ALL_CLIENTS = null;
+    public static Client  CURENT_CLIENT = null;
     public static Client  SELECTED_CLIENT = null;
+
+    public static Integer  CURENT_EXERCICE = 1970;
 
     public static String  AB_TITLE = "";
 

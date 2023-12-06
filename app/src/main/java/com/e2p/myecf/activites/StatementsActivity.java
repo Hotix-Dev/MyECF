@@ -2,6 +2,7 @@ package com.e2p.myecf.activites;
 
 import static com.e2p.myecf.helpers.ConstantConfig.AB_TITLE;
 import static com.e2p.myecf.helpers.ConstantConfig.ALL_CLIENTS;
+import static com.e2p.myecf.helpers.ConstantConfig.CURENT_EXERCICE;
 import static com.e2p.myecf.helpers.ConstantConfig.SELECTED_CLIENT;
 import static com.e2p.myecf.helpers.ConstantConfig.ALL_STATEMENTS;
 import static com.e2p.myecf.helpers.Utils.collapse;
@@ -14,10 +15,14 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.res.ResourcesCompat;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -38,6 +43,7 @@ import com.e2p.myecf.retrofit.RetrofitClient;
 import com.e2p.myecf.retrofit.RetrofitInterface;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,10 +52,16 @@ import retrofit2.Response;
 public class StatementsActivity extends AppCompatActivity {
 
     private static final String TAG = "STATEMENTS_ACTIVITTY";
-
+    private static Integer year_0 = 1970;
+    private static Integer year_1 = 1970;
+    private static Integer year_2 = 1970;
+    private static Integer year_3 = 1970;
     private Toolbar toolbar;
     private MySettings mySettings;
-    private AppCompatSpinner spExercice;
+    private AppCompatButton btnExercice_0;
+    private AppCompatButton btnExercice_1;
+    private AppCompatButton btnExercice_2;
+    private AppCompatButton btnExercice_3;
     private AppCompatSpinner spClient;
 
     private RelativeLayout rlFilter;
@@ -88,6 +100,22 @@ public class StatementsActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.statements_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_refresh) {
+            loadeStatementss();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
     /**********************************************************************************************/
 
     private void bindViews() {
@@ -95,7 +123,6 @@ public class StatementsActivity extends AppCompatActivity {
 
             toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-            spExercice = (AppCompatSpinner) findViewById(R.id.sp_statement_filter_exercice);
             spClient = (AppCompatSpinner) findViewById(R.id.sp_statement_filter_client);
 
             rlFilter = (RelativeLayout) findViewById(R.id.rl_statements_filter);
@@ -103,6 +130,11 @@ public class StatementsActivity extends AppCompatActivity {
 
             ibCollaps = (AppCompatImageButton) findViewById(R.id.ibtn_collaps_filter);
             btnEmptyViewRefresh = (AppCompatButton) findViewById(R.id.btn_empty_view_refresh);
+
+            btnExercice_0 = (AppCompatButton) findViewById(R.id.btn_statements_filter_exercice_0);
+            btnExercice_1 = (AppCompatButton) findViewById(R.id.btn_statements_filter_exercice_1);
+            btnExercice_2= (AppCompatButton) findViewById(R.id.btn_statements_filter_exercice_2);
+            btnExercice_3 = (AppCompatButton) findViewById(R.id.btn_statements_filter_exercice_3);
 
             listView = (ListView) findViewById(R.id.lv_statements);
 
@@ -114,10 +146,35 @@ public class StatementsActivity extends AppCompatActivity {
         }
     }
 
+
     private void init() {
         try {
             //settings
             mySettings = new MySettings(getApplicationContext());
+
+            Calendar calendar = Calendar.getInstance();
+            year_0 = calendar.get(Calendar.YEAR);
+            year_1 = year_0 - 1;
+            year_2 = year_0 - 2;
+            year_3 = year_0 - 3;
+
+            CURENT_EXERCICE = year_0;
+
+            btnExercice_0.setText(year_0 + "");
+            btnExercice_0.setTextColor(ResourcesCompat.getColor(getResources(), R.color.white, null));
+            btnExercice_0.setBackgroundDrawable( ResourcesCompat.getDrawable(getResources(), R.drawable.selected_bg_bordered_button_end_radus, null));
+
+            btnExercice_1.setText(year_1 + "");
+            btnExercice_1.setTextColor(ResourcesCompat.getColor(getResources(), R.color.colorPrimaryDark, null));
+            btnExercice_1.setBackgroundDrawable( ResourcesCompat.getDrawable(getResources(), R.drawable.normal_bg_bordered_button_no_radus, null));
+
+            btnExercice_2.setText(year_2 + "");
+            btnExercice_2.setTextColor(ResourcesCompat.getColor(getResources(), R.color.colorPrimaryDark, null));
+            btnExercice_2.setBackgroundDrawable( ResourcesCompat.getDrawable(getResources(), R.drawable.normal_bg_bordered_button_no_radus, null));
+
+            btnExercice_3.setText(year_3 + "");
+            btnExercice_3.setTextColor(ResourcesCompat.getColor(getResources(), R.color.colorPrimaryDark, null));
+            btnExercice_3.setBackgroundDrawable( ResourcesCompat.getDrawable(getResources(), R.drawable.normal_bg_bordered_button_start_radus, null));
 
             setSupportActionBar(toolbar);
             getSupportActionBar().setTitle(AB_TITLE);
@@ -144,11 +201,132 @@ public class StatementsActivity extends AppCompatActivity {
                 }
             });
 
-            ExerciceSpinnerAdapter exerciceSpinnerAdapter = new ExerciceSpinnerAdapter(getApplicationContext(), Stub.getExercicesList());
-            spExercice.setAdapter(exerciceSpinnerAdapter);
+            btnExercice_0.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try {
 
-            ClientSpinnerAdapter clientSpinnerAdapter = new ClientSpinnerAdapter(getApplicationContext(), ALL_CLIENTS);
-            spClient.setAdapter(clientSpinnerAdapter);
+                        CURENT_EXERCICE = year_0;
+
+                        btnExercice_0.setText(year_0 + "");
+                        btnExercice_0.setTextColor(ResourcesCompat.getColor(getResources(), R.color.white, null));
+                        btnExercice_0.setBackgroundDrawable( ResourcesCompat.getDrawable(getResources(), R.drawable.selected_bg_bordered_button_end_radus, null));
+
+                        btnExercice_1.setText(year_1 + "");
+                        btnExercice_1.setTextColor(ResourcesCompat.getColor(getResources(), R.color.colorPrimaryDark, null));
+                        btnExercice_1.setBackgroundDrawable( ResourcesCompat.getDrawable(getResources(), R.drawable.normal_bg_bordered_button_no_radus, null));
+
+                        btnExercice_2.setText(year_2 + "");
+                        btnExercice_2.setTextColor(ResourcesCompat.getColor(getResources(), R.color.colorPrimaryDark, null));
+                        btnExercice_2.setBackgroundDrawable( ResourcesCompat.getDrawable(getResources(), R.drawable.normal_bg_bordered_button_no_radus, null));
+
+                        btnExercice_3.setText(year_3 + "");
+                        btnExercice_3.setTextColor(ResourcesCompat.getColor(getResources(), R.color.colorPrimaryDark, null));
+                        btnExercice_3.setBackgroundDrawable( ResourcesCompat.getDrawable(getResources(), R.drawable.normal_bg_bordered_button_start_radus, null));
+
+                    } catch (Exception e) {
+                        showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_something_wrong));
+                    } finally {
+                    }
+                }
+            });
+
+            btnExercice_1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try {
+
+                        CURENT_EXERCICE = year_1;
+
+                        btnExercice_0.setText(year_0 + "");
+                        btnExercice_0.setTextColor(ResourcesCompat.getColor(getResources(), R.color.colorPrimaryDark, null));
+                        btnExercice_0.setBackgroundDrawable( ResourcesCompat.getDrawable(getResources(), R.drawable.normal_bg_bordered_button_end_radus, null));
+
+                        btnExercice_1.setText(year_1 + "");
+                        btnExercice_1.setTextColor(ResourcesCompat.getColor(getResources(), R.color.white, null));
+                        btnExercice_1.setBackgroundDrawable( ResourcesCompat.getDrawable(getResources(), R.drawable.selected_bg_bordered_button_no_radus, null));
+
+                        btnExercice_2.setText(year_2 + "");
+                        btnExercice_2.setTextColor(ResourcesCompat.getColor(getResources(), R.color.colorPrimaryDark, null));
+                        btnExercice_2.setBackgroundDrawable( ResourcesCompat.getDrawable(getResources(), R.drawable.normal_bg_bordered_button_no_radus, null));
+
+                        btnExercice_3.setText(year_3 + "");
+                        btnExercice_3.setTextColor(ResourcesCompat.getColor(getResources(), R.color.colorPrimaryDark, null));
+                        btnExercice_3.setBackgroundDrawable( ResourcesCompat.getDrawable(getResources(), R.drawable.normal_bg_bordered_button_start_radus, null));
+
+
+                    } catch (Exception e) {
+                        showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_something_wrong));
+                    } finally {
+                    }
+                }
+            });
+
+            btnExercice_2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try {
+
+                        CURENT_EXERCICE = year_2;
+
+                        btnExercice_0.setText(year_0 + "");
+                        btnExercice_0.setTextColor(ResourcesCompat.getColor(getResources(), R.color.colorPrimaryDark, null));
+                        btnExercice_0.setBackgroundDrawable( ResourcesCompat.getDrawable(getResources(), R.drawable.normal_bg_bordered_button_end_radus, null));
+
+                        btnExercice_1.setText(year_1 + "");
+                        btnExercice_1.setTextColor(ResourcesCompat.getColor(getResources(), R.color.colorPrimaryDark, null));
+                        btnExercice_1.setBackgroundDrawable( ResourcesCompat.getDrawable(getResources(), R.drawable.normal_bg_bordered_button_no_radus, null));
+
+                        btnExercice_2.setText(year_2 + "");
+                        btnExercice_2.setTextColor(ResourcesCompat.getColor(getResources(), R.color.white, null));
+                        btnExercice_2.setBackgroundDrawable( ResourcesCompat.getDrawable(getResources(), R.drawable.selected_bg_bordered_button_no_radus, null));
+
+                        btnExercice_3.setText(year_3 + "");
+                        btnExercice_3.setTextColor(ResourcesCompat.getColor(getResources(), R.color.colorPrimaryDark, null));
+                        btnExercice_3.setBackgroundDrawable( ResourcesCompat.getDrawable(getResources(), R.drawable.normal_bg_bordered_button_start_radus, null));
+
+
+                    } catch (Exception e) {
+                        showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_something_wrong));
+                    } finally {
+                    }
+                }
+            });
+
+            btnExercice_3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try {
+
+                        CURENT_EXERCICE = year_3;
+
+                        btnExercice_0.setText(year_0 + "");
+                        btnExercice_0.setTextColor(ResourcesCompat.getColor(getResources(), R.color.colorPrimaryDark, null));
+                        btnExercice_0.setBackgroundDrawable( ResourcesCompat.getDrawable(getResources(), R.drawable.normal_bg_bordered_button_end_radus, null));
+
+                        btnExercice_1.setText(year_1 + "");
+                        btnExercice_1.setTextColor(ResourcesCompat.getColor(getResources(), R.color.colorPrimaryDark, null));
+                        btnExercice_1.setBackgroundDrawable( ResourcesCompat.getDrawable(getResources(), R.drawable.normal_bg_bordered_button_no_radus, null));
+
+                        btnExercice_2.setText(year_2 + "");
+                        btnExercice_2.setTextColor(ResourcesCompat.getColor(getResources(), R.color.colorPrimaryDark, null));
+                        btnExercice_2.setBackgroundDrawable( ResourcesCompat.getDrawable(getResources(), R.drawable.normal_bg_bordered_button_no_radus, null));
+
+                        btnExercice_3.setText(year_3 + "");
+                        btnExercice_3.setTextColor(ResourcesCompat.getColor(getResources(), R.color.white, null));
+                        btnExercice_3.setBackgroundDrawable( ResourcesCompat.getDrawable(getResources(), R.drawable.selected_bg_bordered_button_start_radus, null));
+
+
+                    } catch (Exception e) {
+                        showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_something_wrong));
+                    } finally {
+                    }
+                }
+            });
+
+
+//            ClientSpinnerAdapter clientSpinnerAdapter = new ClientSpinnerAdapter(getApplicationContext(), ALL_CLIENTS);
+//            spClient.setAdapter(clientSpinnerAdapter);
 
             loadeStatementss();
 

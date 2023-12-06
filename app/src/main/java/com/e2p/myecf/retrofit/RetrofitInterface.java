@@ -20,7 +20,13 @@ public interface RetrofitInterface {
 
     //Get All Clients service call
     @GET
-    Call<ArrayList<Client> > getAllClientsQuery(@Url String URL);
+    Call<ArrayList<Client>> getAllClientsQuery(@Url String URL);
+
+    //Get Client By Code service call
+    @GET
+    Call<Client> getClientByCodeQuery(@Url String URL,
+                                                  @Query("Id") Integer Id,
+                                                  @Query("code") String code);
 
     //Get All Statements service call
     @GET

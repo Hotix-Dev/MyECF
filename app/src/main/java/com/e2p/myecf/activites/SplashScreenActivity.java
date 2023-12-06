@@ -95,8 +95,8 @@ public class SplashScreenActivity extends AppCompatActivity {
                     .placeholder(R.drawable.logo)
                     .into(ivSplashLogo);
 
-            // startDelay();
-            loadingClients();
+             startDelay();
+            //loadingClients();
 
         } catch (Exception e) {
             Log.e(TAG, e.toString());
@@ -111,8 +111,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    //Intent i = new Intent(getApplicationContext(), LoginActivity.class);
-                    Intent i = new Intent(getApplicationContext(), HomeActivity.class);
+                    Intent i = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(i);
                     overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
                     finish();
@@ -125,7 +124,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
     }
 
-    /**********************************(  Loading Start Data  )*************************************/
+    /**********************************(  Loading Clients  )*************************************/
     public void loadingClients() {
 
         String URL = "Client/GetClient";

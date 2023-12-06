@@ -28,4 +28,9 @@
     <string name="no_item_to_show">No Items To Show</string>
     <string name="refresh">Refresh</string>
     <string name="text_filter">Filter</string>
+    <string name="text_filters">Filters</string>
+    <string name="error_message_server_down">Server is down please try after some time</string>
+    <string name="menu_item_logout">Logout</string>
+    <string name="dialog_logout_title">Logout</string>
+    <string name="dialog_logout_text">Are you sure you want to log out?</string>
 </resources>

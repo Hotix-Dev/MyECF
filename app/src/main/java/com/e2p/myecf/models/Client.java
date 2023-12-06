@@ -5,50 +5,71 @@ import com.google.gson.annotations.SerializedName;
 
 public class Client {
 
-    @SerializedName("Forme Juridique")
+    @SerializedName("FormeJuridique")
     @Expose
-    private String forme_juridique;
-    @SerializedName("tiers_id")
+    private String formeJuridique;
+    @SerializedName("Id")
     @Expose
-    private Double id;
+    private Integer id;
     @SerializedName("Code")
     @Expose
     private String code;
-    @SerializedName("Raison Social")
+    @SerializedName("Name")
     @Expose
-    private String raison_social;
+    private String name;
     @SerializedName("responsable")
     @Expose
     private String responsable;
     @SerializedName("GSM")
     @Expose
     private String GSM;
+    @SerializedName("Email")
+    @Expose
+    private String email;
+    @SerializedName("MyECFPwd")
+    @Expose
+    private String myECFPwd;
+    @SerializedName("IsAdmin")
+    @Expose
+    private Boolean isAdmin;
 
     public Client() {
     }
 
-    public Client(String forme_juridique, Double id, String code, String raison_social, String responsable, String GSM) {
-        this.forme_juridique = forme_juridique;
+    public Client(String formeJuridique, Integer id, String code, String name, String responsable, String GSM, String email, String myECFPwd) {
+        this.formeJuridique = formeJuridique;
         this.id = id;
         this.code = code;
-        this.raison_social = raison_social;
+        this.name = name;
         this.responsable = responsable;
         this.GSM = GSM;
+        this.email = email;
+        this.myECFPwd = myECFPwd;
     }
 
-    public String getForme_juridique() {
-        return forme_juridique;
+    public Client(Integer id, String code, String name, String GSM, String email, String myECFPwd, Boolean isAdmin) {
+        this.id = id;
+        this.code = code;
+        this.name = name;
+        this.GSM = GSM;
+        this.email = email;
+        this.myECFPwd = myECFPwd;
+        this.isAdmin = isAdmin;
     }
 
-    public void setForme_juridique(String forme_juridique) {
-        this.forme_juridique = forme_juridique;
+    public String getFormeJuridique() {
+        return formeJuridique;
     }
 
-    public Double getId() {
+    public void setFormeJuridique(String formeJuridique) {
+        this.formeJuridique = formeJuridique;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Double id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -60,12 +81,12 @@ public class Client {
         this.code = code;
     }
 
-    public String getRaison_social() {
-        return raison_social;
+    public String getName() {
+        return name;
     }
 
-    public void setRaison_social(String raison_social) {
-        this.raison_social = raison_social;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getResponsable() {
@@ -82,5 +103,29 @@ public class Client {
 
     public void setGSM(String GSM) {
         this.GSM = GSM;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getMyECFPwd() {
+        return myECFPwd;
+    }
+
+    public void setMyECFPwd(String myECFPwd) {
+        this.myECFPwd = myECFPwd;
+    }
+
+    public Boolean getAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        isAdmin = admin;
     }
 }

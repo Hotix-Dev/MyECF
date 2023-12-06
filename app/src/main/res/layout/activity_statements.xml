@@ -58,7 +58,7 @@
                 android:layout_marginEnd="@dimen/_6sdp"
                 android:layout_marginBottom="@dimen/_6sdp"
                 android:gravity="start"
-                android:text="@string/text_filter"
+                android:text="@string/text_filters"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/_13ssp"
                 android:textStyle="bold" />
@@ -79,60 +79,101 @@
         <RelativeLayout
             android:id="@+id/rl_statements_filter"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_125sdp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_30sdp"
             android:background="@color/grey_200">
 
-            <!-- Exercice -->
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_statement_filter_exercice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="@dimen/_6sdp"
-                android:layout_marginTop="@dimen/_6sdp"
-                android:layout_marginBottom="@dimen/_6sdp"
-                android:text="@string/text_exercice"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/_12ssp"
-                android:textStyle="bold" />
-
-            <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/sp_statement_filter_exercice"
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/ll_statements_filter_exercice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_statement_filter_exercice"
-                android:layout_alignParentStart="true"
-                android:layout_margin="@dimen/_3sdp"
-                android:paddingStart="@dimen/_10sdp"
-                android:paddingEnd="@dimen/_10sdp"
-                android:spinnerMode="dropdown" />
-
-            <!-- Client -->
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_statement_filter_client"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/sp_statement_filter_exercice"
-                android:layout_alignParentStart="true"
                 android:layout_marginStart="@dimen/_6sdp"
                 android:layout_marginTop="@dimen/_6sdp"
+                android:layout_marginEnd="@dimen/_6sdp"
                 android:layout_marginBottom="@dimen/_6sdp"
-                android:text="@string/text_client"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/_12ssp"
-                android:textStyle="bold" />
+                android:background="@color/grey_200"
+                android:orientation="horizontal"
+                android:weightSum="4">
 
-            <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/sp_statement_filter_client"
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_statements_filter_exercice_3"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_margin="@dimen/_1sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/normal_bg_bordered_button_start_radus"
+                    android:text="1970"
+                    android:textColor="@color/colorPrimaryDark" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_statements_filter_exercice_2"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_margin="@dimen/_1sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/normal_bg_bordered_button_no_radus"
+                    android:text="1970"
+                    android:textColor="@color/colorPrimaryDark" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_statements_filter_exercice_1"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_margin="@dimen/_1sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/normal_bg_bordered_button_no_radus"
+                    android:text="1970"
+                    android:textColor="@color/colorPrimaryDark" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_statements_filter_exercice_0"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_margin="@dimen/_1sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/selected_bg_bordered_button_end_radus"
+                    android:text="1970"
+                    android:textColor="@color/white" />
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <RelativeLayout
+                android:id="@+id/rl_statements_filter_client"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_statement_filter_client"
-                android:layout_alignParentStart="true"
-                android:layout_margin="@dimen/_3sdp"
-                android:paddingStart="@dimen/_10sdp"
-                android:paddingEnd="@dimen/_10sdp"
-                android:spinnerMode="dropdown" />
+                android:layout_marginTop="@dimen/_6sdp"
+                android:layout_below="@+id/ll_statements_filter_exercice"
+                android:background="@color/grey_200"
+                android:visibility="gone">
+
+                <!-- Client -->
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_statement_filter_client"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/sp_statement_filter_exercice"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:layout_marginBottom="@dimen/_6sdp"
+                    android:text="@string/text_client"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/_12ssp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/sp_statement_filter_client"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_statement_filter_client"
+                    android:layout_alignParentStart="true"
+                    android:layout_margin="@dimen/_3sdp"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:spinnerMode="dropdown" />
+
+            </RelativeLayout>
 
         </RelativeLayout>
 

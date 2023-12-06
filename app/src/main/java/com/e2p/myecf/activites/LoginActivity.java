@@ -1,6 +1,7 @@
 package com.e2p.myecf.activites;
 
 import static com.e2p.myecf.helpers.ConstantConfig.ALL_CLIENTS;
+import static com.e2p.myecf.helpers.ConstantConfig.CURENT_CLIENT;
 import static com.e2p.myecf.helpers.ConstantConfig.SELECTED_CLIENT;
 import static com.e2p.myecf.helpers.Utils.showSnackbar;
 
@@ -29,9 +30,17 @@ import com.e2p.myecf.R;
 import com.e2p.myecf.helpers.InputValidation;
 import com.e2p.myecf.helpers.MySettings;
 import com.e2p.myecf.models.Client;
+import com.e2p.myecf.retrofit.RetrofitClient;
+import com.e2p.myecf.retrofit.RetrofitInterface;
 import com.e2p.myecf.views.kbv.KenBurnsView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -129,23 +138,20 @@ public class LoginActivity extends AppCompatActivity {
                 try {
                     btnLogin.setEnabled(false);
                     if (inputTextValidation()) {
-                        SELECTED_CLIENT = null;
+                        CURENT_CLIENT = null;
 
-                        for(Client client : ALL_CLIENTS) {
-                                if(client.getCode().trim().equals(etUsername.getText().toString().toUpperCase().trim())) {
-                                    SELECTED_CLIENT = client;
-                                    break;
-                                }
-                        }
+                        if (etUsername.getText().toString().toUpperCase().trim().equals("ADMIN")) {
 
-                        if (SELECTED_CLIENT != null) {
-                            Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
+                            CURENT_CLIENT = new Client(-1, "ADMIN", "Admin", "","","",true);
+                            Intent i = new Intent(getApplicationContext(), AdminActivity.class);
                             startActivity(i);
                             overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
                             finish();
+
                         } else {
-                            showSnackbar(findViewById(android.R.id.content), getString(R.string.warning_message_client_do_not_exist));
+                            login();
                         }
+
                     }
                 } catch (Exception e) {
                     Log.e(TAG, e.toString());
@@ -223,4 +229,43 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
+
+    /**********************************(  Login  )*************************************/
+    public void login() {
+        pbLogin.setVisibility(View.VISIBLE);
+        String Code = etUsername.getText().toString();
+        String URL = "Client/GetOne?";
+
+        RetrofitInterface service = RetrofitClient.getClientApi().create(RetrofitInterface.class);
+        Call<Client> apiCall = service.getClientByCodeQuery(URL, -1, Code);
+
+        apiCall.enqueue(new Callback<Client>() {
+            @Override
+            public void onResponse(Call<Client> call, Response<Client> response) {
+
+                pbLogin.setVisibility(View.GONE);
+
+                if (response.raw().code() == 200) {
+                    CURENT_CLIENT = response.body();
+                    Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
+                    overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+                    startActivity(i);
+                    finish();
+                } else {
+                    showSnackbar(findViewById(android.R.id.content), response.message());
+                    Log.e(TAG, response.raw().code() + "");
+                    btnLogin.setEnabled(true);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Client> call, Throwable t) {
+                pbLogin.setVisibility(View.GONE);
+                showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_server_down));
+                btnLogin.setEnabled(true);
+            }
+        });
+
+    }
+
 }
