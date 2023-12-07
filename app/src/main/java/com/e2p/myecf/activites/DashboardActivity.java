@@ -124,6 +124,7 @@ public class DashboardActivity extends AppCompatActivity {
             dashItems.add(new DashItem(1, getString(R.string.menu_my_statements), "smartphone"));
             dashItems.add(new DashItem(2, getString(R.string.menu_my_messages), "chat"));
             dashItems.add(new DashItem(3, getString(R.string.menu_my_contacts), "contacts"));
+            dashItems.add(new DashItem(4, getString(R.string.menu_my_profile), "curriculum_vitae"));
 
             mGridAdapter = new DashbordGridAdapter(getApplicationContext(), dashItems);
             gvDashbord.setAdapter(mGridAdapter);
@@ -149,6 +150,10 @@ public class DashboardActivity extends AppCompatActivity {
                                 break;
                             case 3:
                                 i = new Intent(getApplicationContext(), ContactsActivity.class);
+                                startActivity(i);
+                                break;
+                            case 4:
+                                i = new Intent(getApplicationContext(), ProfileActivity.class);
                                 startActivity(i);
                                 break;
                         }

@@ -31,10 +31,10 @@ public interface RetrofitInterface {
     //Get All Statements service call
     @GET
     Call<ArrayList<Statement>> getAllStatementsQuery(@Url String URL,
-                                                      @Query("cabinetId") String cabinetId,
-                                                      @Query("clientId") String clientId,
-                                                      @Query("exerciceDebut") String exerciceDebut,
-                                                      @Query("exerciceFin") String exerciceFin);
+                                                      @Query("cabinetId") Integer cabinetId,
+                                                      @Query("clientId") Integer clientId,
+                                                      @Query("exerciceDebut") Integer exerciceDebut,
+                                                      @Query("exerciceFin") Integer exerciceFin);
 
     /***
      ** POST ********************************************************************************************

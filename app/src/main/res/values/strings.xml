@@ -13,6 +13,7 @@
     <string name="menu_my_statements">My Statements</string>
     <string name="menu_my_messages">My Messages</string>
     <string name="menu_my_contacts">My Contacts</string>
+    <string name="menu_my_profile">My Profile</string>
     <string name="text_home">Home</string>
     <!-- to toggle the open close button of the navigation drawer -->
     <string name="nav_open">Open</string>

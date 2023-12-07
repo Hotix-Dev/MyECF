@@ -72,7 +72,7 @@
                 android:layout_marginEnd="16dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:tint="@color/colorPrimaryDark"
-                app:srcCompat="@drawable/ic_keyboard_arrow_down_black_24dp" />
+                app:srcCompat="@drawable/ic_keyboard_arrow_up_black_24dp" />
 
         </RelativeLayout>
 
@@ -190,19 +190,17 @@
         <include layout="@layout/include_loading_view" />
 
         <!-- ListView -->
-        <ListView
+        <ExpandableListView
             android:id="@+id/lv_statements"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="@color/colorPrimaryDark"
             android:dividerHeight="1px"
-            android:drawSelectorOnTop="true"
-            android:groupIndicator="@drawable/group_indicator_selector" />
+            android:drawSelectorOnTop="true" />
 
         <!-- Empty View -->
         <include layout="@layout/include_empty_list_view" />
 
     </RelativeLayout>
-
 
 </RelativeLayout>

@@ -142,7 +142,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         if (etUsername.getText().toString().toUpperCase().trim().equals("ADMIN")) {
 
-                            CURENT_CLIENT = new Client(-1, "ADMIN", "Admin", "","","",true);
+                            CURENT_CLIENT = new Client(-1, "ADMIN", "Admin", "", "", "", true);
                             Intent i = new Intent(getApplicationContext(), AdminActivity.class);
                             startActivity(i);
                             overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
@@ -232,39 +232,46 @@ public class LoginActivity extends AppCompatActivity {
 
     /**********************************(  Login  )*************************************/
     public void login() {
-        pbLogin.setVisibility(View.VISIBLE);
-        String Code = etUsername.getText().toString();
-        String URL = "Client/GetOne?";
+        try {
+            btnLogin.setEnabled(false);
+            pbLogin.setVisibility(View.VISIBLE);
+            String Code = etUsername.getText().toString();
+            String URL = "Client/GetOne?";
 
-        RetrofitInterface service = RetrofitClient.getClientApi().create(RetrofitInterface.class);
-        Call<Client> apiCall = service.getClientByCodeQuery(URL, -1, Code);
+            RetrofitInterface service = RetrofitClient.getClientApi().create(RetrofitInterface.class);
+            Call<Client> apiCall = service.getClientByCodeQuery(URL, -1, Code);
 
-        apiCall.enqueue(new Callback<Client>() {
-            @Override
-            public void onResponse(Call<Client> call, Response<Client> response) {
+            apiCall.enqueue(new Callback<Client>() {
+                @Override
+                public void onResponse(Call<Client> call, Response<Client> response) {
 
-                pbLogin.setVisibility(View.GONE);
+                    pbLogin.setVisibility(View.GONE);
 
-                if (response.raw().code() == 200) {
-                    CURENT_CLIENT = response.body();
-                    Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
-                    overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
-                    startActivity(i);
-                    finish();
-                } else {
-                    showSnackbar(findViewById(android.R.id.content), response.message());
-                    Log.e(TAG, response.raw().code() + "");
+                    if (response.raw().code() == 200) {
+                        CURENT_CLIENT = response.body();
+                        Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
+                        overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+                        startActivity(i);
+                        finish();
+                    } else {
+                        showSnackbar(findViewById(android.R.id.content), response.message());
+                        Log.e(TAG, response.raw().code() + "");
+                        btnLogin.setEnabled(true);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Client> call, Throwable t) {
+                    pbLogin.setVisibility(View.GONE);
+                    showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_server_down));
                     btnLogin.setEnabled(true);
                 }
-            }
-
-            @Override
-            public void onFailure(Call<Client> call, Throwable t) {
-                pbLogin.setVisibility(View.GONE);
-                showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_server_down));
-                btnLogin.setEnabled(true);
-            }
-        });
+            });
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+            showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_something_wrong));
+            btnLogin.setEnabled(true);
+        }
 
     }
 

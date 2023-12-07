@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MyECF</string>
+    <string name="error_message_something_wrong">Quelque chose s\'est mal passé !</string>
+    <string name="text_login">LOGIN</string>
+    <string name="hint_username">Nom d\'utilisateur</string>
+    <string name="hint_password">Mot de passe</string>
+    <string name="text_version">Version</string>
+    <string name="dialog_exit_title">QUITTER</string>
+    <string name="dialog_exit_text">Êtes-vous sûr de vouloir quitter?</string>
+    <string name="all_yes">OUI</string>
+    <string name="all_cancel">ANNULER</string>
+    <string name="error_message_field_required">Ce champ est obligatoire!</string>
+    <string name="menu_my_statements">Mes déclarations</string>
+    <string name="menu_my_messages">Mes messages</string>
+    <string name="menu_my_contacts">Mes contacts</string>
+    <string name="menu_my_profile">Mon profil</string>
+    <string name="text_home">Accueil</string>
+    <string name="nav_open">Ouvrir</string>
+    <string name="nav_close">Fermer</string>
+    <string name="text_exercice">Exercice</string>
+    <string name="hint_code">Code</string>
+    <string name="text_client">Client</string>
+    <string name="hint_name">Nom</string>
+    <string name="text_type">Type</string>
+    <string name="msg_loading_data">Chargement des données</string>
+    <string name="warning_message_client_do_not_exist">Le client n\'existe pas</string>
+    <string name="loading">Chargement</string>
+    <string name="no_item_to_show">Aucun élément à afficher</string>
+    <string name="refresh">Rafraîchir</string>
+    <string name="text_filter">Filtre</string>
+    <string name="text_filters">Filtres</string>
+    <string name="error_message_server_down">Le serveur est en panne, veuillez réessayer</string>
+    <string name="menu_item_logout">Déconnexion</string>
+    <string name="dialog_logout_title">Déconnexion</string>
+    <string name="dialog_logout_text">Êtes-vous sûr de vouloir vous déconnecter?</string>
+</resources>

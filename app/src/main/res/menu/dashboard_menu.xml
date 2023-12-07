@@ -5,7 +5,7 @@
     <item
         android:id="@+id/action_logout"
         android:orderInCategory="1"
-        android:icon="@drawable/ic_power_settings_new_red_500_36dp"
+        android:icon="@drawable/logout"
         android:title="@string/menu_item_logout"
         app:showAsAction="ifRoom"></item>
 

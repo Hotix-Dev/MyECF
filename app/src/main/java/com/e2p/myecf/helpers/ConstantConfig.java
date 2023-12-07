@@ -22,6 +22,10 @@ public class ConstantConfig {
     public static Client  SELECTED_CLIENT = null;
 
     public static Integer  CURENT_EXERCICE = 1970;
+    public static Integer YEAR_0 = 1970;
+    public static Integer YEAR_1 = 1970;
+    public static Integer YEAR_2 = 1970;
+    public static Integer YEAR_3 = 1970;
 
     public static String  AB_TITLE = "";
 

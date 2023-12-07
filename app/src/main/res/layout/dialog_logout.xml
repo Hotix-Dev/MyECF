@@ -10,7 +10,7 @@
         android:layout_height="120dp"
         android:background="@color/red_500">
 
-        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_dialog_logout_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
     </RelativeLayout>
 
     <!-- Add Complaint Title Label -->
-    <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_dialog_logout_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
