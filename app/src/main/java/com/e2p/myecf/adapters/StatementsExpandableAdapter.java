@@ -137,9 +137,11 @@ public class StatementsExpandableAdapter extends BaseExpandableListAdapter {
 
             Statement _Statement = childItems.get(groupPosition).get(childPosition);
 
-            viewHolderChild.statement_title.setText(_Statement.getGrpName());
-            viewHolderChild.statement_data.setText(_Statement.getColumn7());
-            viewHolderChild.statement_total.setText(_Statement.getColumn6() + "");
+            viewHolderChild.statement_title.setText(_Statement.getLibelle1());
+            viewHolderChild.statement_data.setText(_Statement.getLibelle2());
+            //viewHolderChild.statement_total.setText(_Statement.getColumn6() + "");
+            viewHolderChild.statement_total.setText("");
+
         }
 
         return convertView;
