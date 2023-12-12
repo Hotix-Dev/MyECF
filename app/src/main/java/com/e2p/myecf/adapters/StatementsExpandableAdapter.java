@@ -1,16 +1,20 @@
 package com.e2p.myecf.adapters;
 
+import static android.graphics.Color.parseColor;
+
 import android.content.Context;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.e2p.myecf.R;
+import com.e2p.myecf.helpers.Utils;
 import com.e2p.myecf.models.Statement;
 
 import java.text.DecimalFormat;
@@ -131,6 +135,7 @@ public class StatementsExpandableAdapter extends BaseExpandableListAdapter {
             LayoutInflater inflater = LayoutInflater.from(_context);
             convertView = inflater.inflate(R.layout.item_statement_row, parent, false);
 
+            viewHolderChild.rl_bg = (RelativeLayout) convertView.findViewById(R.id.rl_statement_main);
             viewHolderChild.statement_title = (AppCompatTextView) convertView.findViewById(R.id.tv_statement_title);
             viewHolderChild.statement_data = (AppCompatTextView) convertView.findViewById(R.id.tv_statement_data);
             viewHolderChild.statement_total = (AppCompatTextView) convertView.findViewById(R.id.tv_statement_total);
@@ -141,6 +146,10 @@ public class StatementsExpandableAdapter extends BaseExpandableListAdapter {
             viewHolderChild.statement_data.setText(_Statement.getLibelle2());
             //viewHolderChild.statement_total.setText(_Statement.getColumn6() + "");
             viewHolderChild.statement_total.setText("");
+
+            if (!Utils.stringEmptyOrNull(_Statement.getColor())) {
+                viewHolderChild.rl_bg.setBackgroundColor(parseColor(_Statement.getColor()));
+            }
 
         }
 
@@ -158,6 +167,8 @@ public class StatementsExpandableAdapter extends BaseExpandableListAdapter {
     }
 
     private class ViewHolderChild {
+
+        RelativeLayout rl_bg;
 
         AppCompatTextView statement_title;
         AppCompatTextView statement_total;

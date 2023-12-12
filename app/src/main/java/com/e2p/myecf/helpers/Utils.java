@@ -98,4 +98,19 @@ public final class Utils {
         return drawableResourceId;
     }
 
+    /**
+     * String Empty Or Null (String)
+     * EX stringEmptyOrNull("hello")
+     *
+     * @param str //the String to check for null or empty value
+     * @return true if the String is !null & !empty false if not
+     */
+    public static boolean stringEmptyOrNull(String str) {
+
+        if (str != null && !str.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
 }
