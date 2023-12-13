@@ -136,6 +136,8 @@ public class StatementsExpandableAdapter extends BaseExpandableListAdapter {
             convertView = inflater.inflate(R.layout.item_statement_row, parent, false);
 
             viewHolderChild.rl_bg = (RelativeLayout) convertView.findViewById(R.id.rl_statement_main);
+            viewHolderChild.rl_color_l = (RelativeLayout) convertView.findViewById(R.id.rl_color_layout_left);
+            viewHolderChild.rl_color_r = (RelativeLayout) convertView.findViewById(R.id.rl_color_layout_right);
             viewHolderChild.statement_title = (AppCompatTextView) convertView.findViewById(R.id.tv_statement_title);
             viewHolderChild.statement_data = (AppCompatTextView) convertView.findViewById(R.id.tv_statement_data);
             viewHolderChild.statement_total = (AppCompatTextView) convertView.findViewById(R.id.tv_statement_total);
@@ -148,7 +150,7 @@ public class StatementsExpandableAdapter extends BaseExpandableListAdapter {
             viewHolderChild.statement_total.setText("");
 
             if (!Utils.stringEmptyOrNull(_Statement.getColor())) {
-                viewHolderChild.rl_bg.setBackgroundColor(parseColor(_Statement.getColor()));
+                viewHolderChild.rl_color_l.setBackgroundColor(parseColor(_Statement.getColor()));
             }
 
         }
@@ -169,7 +171,8 @@ public class StatementsExpandableAdapter extends BaseExpandableListAdapter {
     private class ViewHolderChild {
 
         RelativeLayout rl_bg;
-
+        RelativeLayout rl_color_l;
+        RelativeLayout rl_color_r;
         AppCompatTextView statement_title;
         AppCompatTextView statement_total;
         AppCompatTextView statement_data;

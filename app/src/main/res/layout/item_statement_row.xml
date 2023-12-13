@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/_50sdp">
+
     <RelativeLayout
         android:id="@+id/rl_statement_main"
         android:layout_width="match_parent"
@@ -10,12 +11,14 @@
 
         <!-- Color Layout Left -->
         <RelativeLayout
-            android:layout_width="@dimen/_3sdp"
+            android:id="@+id/rl_color_layout_left"
+            android:layout_width="@dimen/_32sdp"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:background="@color/colorPrimaryDark" />
         <!-- Color Layout Right -->
         <RelativeLayout
+            android:id="@+id/rl_color_layout_right"
             android:layout_width="@dimen/_3sdp"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
@@ -26,10 +29,11 @@
             android:id="@+id/tv_statement_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="@dimen/_16sdp"
+
+            android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_6sdp"
+            android:layout_toRightOf="@+id/rl_color_layout_left"
             android:text="Title"
             android:textColor="@color/grey_700"
             android:textSize="@dimen/_14ssp"
@@ -44,6 +48,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginStart="@dimen/_16sdp"
             android:layout_marginBottom="@dimen/_3sdp"
+            android:layout_toRightOf="@+id/rl_color_layout_left"
             android:text="Total"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/_12ssp"
@@ -54,10 +59,10 @@
             android:id="@+id/tv_statement_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginEnd="@dimen/_16sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
             android:layout_marginBottom="@dimen/_3sdp"
+            android:layout_toLeftOf="@+id/rl_color_layout_right"
             android:text="Data"
             android:textColor="@color/grey_500"
             android:textSize="@dimen/_12ssp" />
