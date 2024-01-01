@@ -124,7 +124,7 @@ public class StatementsActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_refresh) {
-            loadeStatementss();
+            loadeStatements();
             return true;
         } else {
             return super.onOptionsItemSelected(item);
@@ -212,7 +212,7 @@ public class StatementsActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     try {
-                        loadeStatementss();
+                        loadeStatements();
                     } catch (Exception e) {
                         showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_something_wrong));
                     } finally {
@@ -225,7 +225,7 @@ public class StatementsActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     try {
                         setExerciceFilter(YEAR_0);
-                        loadeStatementss();
+                        loadeStatements();
                     } catch (Exception e) {
                         showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_something_wrong));
                     } finally {
@@ -238,7 +238,7 @@ public class StatementsActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     try {
                         setExerciceFilter(YEAR_1);
-                        loadeStatementss();
+                        loadeStatements();
                     } catch (Exception e) {
                         showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_something_wrong));
                     } finally {
@@ -251,7 +251,7 @@ public class StatementsActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     try {
                         setExerciceFilter(YEAR_2);
-                        loadeStatementss();
+                        loadeStatements();
                     } catch (Exception e) {
                         showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_something_wrong));
                     } finally {
@@ -264,7 +264,7 @@ public class StatementsActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     try {
                         setExerciceFilter(YEAR_3);
-                        loadeStatementss();
+                        loadeStatements();
                     } catch (Exception e) {
                         showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_something_wrong));
                     } finally {
@@ -310,7 +310,7 @@ public class StatementsActivity extends AppCompatActivity {
             });
 
 
-            loadeStatementss();
+            loadeStatements();
 
         } catch (Exception e) {
             Log.e(TAG, e.toString());
@@ -359,14 +359,14 @@ public class StatementsActivity extends AppCompatActivity {
 
     /**********************************************************************************************/
 
-    private void loadeStatementss() {
+    private void loadeStatements() {
 
         progressView.setVisibility(View.VISIBLE);
         emptyListView.setVisibility(View.GONE);
 
         String URL = "Client/GetDeclarations?";
         RetrofitInterface service = RetrofitClient.getClientApi().create(RetrofitInterface.class);
-        Call<ArrayList<Statement>> apiCall = service.getAllStatementsQuery(URL, -1, CURENT_CLIENT.getId(), CURENT_EXERCICE, CURENT_EXERCICE);
+        Call<ArrayList<Statement>> apiCall = service.getAllStatementsQuery(URL, 1, SELECTED_CLIENT.getId(), CURENT_EXERCICE, CURENT_EXERCICE);
 
         apiCall.enqueue(new Callback<ArrayList<Statement>>() {
             @Override

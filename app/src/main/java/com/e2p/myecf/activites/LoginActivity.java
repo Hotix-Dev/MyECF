@@ -143,7 +143,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (etUsername.getText().toString().toUpperCase().trim().equals("ADMIN")) {
 
                             CURENT_CLIENT = new Client(-1, "ADMIN", "Admin", "", "", "", true);
-                            Intent i = new Intent(getApplicationContext(), AdminActivity.class);
+                            Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
                             startActivity(i);
                             overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
                             finish();
@@ -249,6 +249,8 @@ public class LoginActivity extends AppCompatActivity {
 
                     if (response.raw().code() == 200) {
                         CURENT_CLIENT = response.body();
+                        CURENT_CLIENT.setAdmin(false);
+                        SELECTED_CLIENT = CURENT_CLIENT;
                         Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
                         overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
                         startActivity(i);

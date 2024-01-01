@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">MyECF</string>
     <string name="error_message_something_wrong">Quelque chose s\'est mal passé !</string>
+    <string name="warning_messag_select_client">Vous devez sélectionner un client</string>
     <string name="text_login">LOGIN</string>
     <string name="hint_username">Nom d\'utilisateur</string>
     <string name="hint_password">Mot de passe</string>
@@ -11,10 +12,13 @@
     <string name="all_yes">OUI</string>
     <string name="all_cancel">ANNULER</string>
     <string name="error_message_field_required">Ce champ est obligatoire!</string>
-    <string name="menu_my_statements">Mes déclarations</string>
-    <string name="menu_my_messages">Mes messages</string>
-    <string name="menu_my_contacts">Mes contacts</string>
-    <string name="menu_my_profile">Mon profil</string>
+    <string name="menu_my_statements">Déclarations</string>
+    <string name="menu_my_messages">Messages</string>
+    <string name="menu_my_contacts">Contacts</string>
+    <string name="menu_my_profile">Profil</string>
+    <string name="menu_clients_charges">Charges Clients</string>
+    <string name="menu_annual_charges">Charges annuelles</string>
+    <string name="menu_select_client">Choisir Client</string>
     <string name="text_home">Accueil</string>
     <string name="nav_open">Ouvrir</string>
     <string name="nav_close">Fermer</string>

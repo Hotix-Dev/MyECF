@@ -37,13 +37,10 @@ public class Statement {
     private Double column5;
     @SerializedName("Column6")
     @Expose
-    private Double column6;
+    private String column6;
     @SerializedName("nbreDepot")
     @Expose
     private Integer nbreDepot;
-    @SerializedName("Column7")
-    @Expose
-    private String column7;
     @SerializedName("Libelle1")
     @Expose
     private String libelle1;
@@ -57,7 +54,7 @@ public class Statement {
     public Statement() {
     }
 
-    public Statement(Integer ordre, String grpCode, String grpName, String column1, String column2, Integer exercice_id, Integer column3, Boolean column4, Integer client_planning_a_p_ordre, Double column5, Double column6, Integer nbreDepot, String column7, String libelle1, String libelle2, String color) {
+    public Statement(Integer ordre, String grpCode, String grpName, String column1, String column2, Integer exercice_id, Integer column3, Boolean column4, Integer client_planning_a_p_ordre, Double column5, String column6, Integer nbreDepot, String libelle1, String libelle2, String color) {
         this.ordre = ordre;
         this.grpCode = grpCode;
         this.grpName = grpName;
@@ -70,7 +67,6 @@ public class Statement {
         this.column5 = column5;
         this.column6 = column6;
         this.nbreDepot = nbreDepot;
-        this.column7 = column7;
         this.libelle1 = libelle1;
         this.libelle2 = libelle2;
         this.color = color;
@@ -156,11 +152,11 @@ public class Statement {
         this.column5 = column5;
     }
 
-    public Double getColumn6() {
+    public String getColumn6() {
         return column6;
     }
 
-    public void setColumn6(Double column6) {
+    public void setColumn6(String column6) {
         this.column6 = column6;
     }
 
@@ -171,15 +167,6 @@ public class Statement {
     public void setNbreDepot(Integer nbreDepot) {
         this.nbreDepot = nbreDepot;
     }
-
-    public String getColumn7() {
-        return column7;
-    }
-
-    public void setColumn7(String column7) {
-        this.column7 = column7;
-    }
-
     public String getLibelle1() {
         return libelle1;
     }

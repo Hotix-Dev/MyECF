@@ -1,5 +1,7 @@
 package com.e2p.myecf.activites;
 
+import static com.e2p.myecf.helpers.ConstantConfig.CURENT_CLIENT;
+import static com.e2p.myecf.helpers.ConstantConfig.SELECTED_CLIENT;
 import static com.e2p.myecf.helpers.Utils.showSnackbar;
 import static com.e2p.myecf.helpers.ConstantConfig.AB_TITLE;
 
@@ -63,6 +65,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         try {
             gvDashbord.setEnabled(true);
+            getSupportActionBar().setTitle((SELECTED_CLIENT != null)?SELECTED_CLIENT.getName():"");
         } catch (Exception e) {
             Log.e(TAG, e.toString());
             showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_something_wrong));
@@ -116,7 +119,8 @@ public class DashboardActivity extends AppCompatActivity {
             mySettings = new MySettings(getApplicationContext());
 
             setSupportActionBar(toolbar);
-            getSupportActionBar().setTitle(getString(R.string.app_name));
+            //getSupportActionBar().setTitle(getString(R.string.app_name));
+            getSupportActionBar().setTitle((SELECTED_CLIENT != null)?SELECTED_CLIENT.getName():"");
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
             getSupportActionBar().setDisplayShowHomeEnabled(false);
 
@@ -125,6 +129,16 @@ public class DashboardActivity extends AppCompatActivity {
             dashItems.add(new DashItem(2, getString(R.string.menu_my_messages), "chat"));
             dashItems.add(new DashItem(3, getString(R.string.menu_my_contacts), "contacts"));
             dashItems.add(new DashItem(4, getString(R.string.menu_my_profile), "curriculum_vitae"));
+
+            if (CURENT_CLIENT.getAdmin()) {
+                dashItems.add(new DashItem(5, getString(R.string.menu_clients_charges), "optimization"));
+            }
+
+            dashItems.add(new DashItem(6, getString(R.string.menu_annual_charges), "exchange_rate"));
+
+            if (CURENT_CLIENT.getAdmin()) {
+                dashItems.add(new DashItem(7, getString(R.string.menu_select_client), "recruitment"));
+            }
 
             mGridAdapter = new DashbordGridAdapter(getApplicationContext(), dashItems);
             gvDashbord.setAdapter(mGridAdapter);
@@ -140,22 +154,57 @@ public class DashboardActivity extends AppCompatActivity {
                         Intent i = null;
                         switch (_DashItem.getId()) {
 
-                            case 1:
+                            case 1: {
+                                if ((CURENT_CLIENT.getAdmin()) && (SELECTED_CLIENT == null)) {
+                                    showSnackbar(findViewById(android.R.id.content), getString(R.string.warning_messag_select_client));
+                                    gvDashbord.setEnabled(true);
+                                    return;
+                                }
                                 i = new Intent(getApplicationContext(), StatementsActivity.class);
                                 startActivity(i);
                                 break;
-                            case 2:
+                            }
+
+                            case 2: {
                                 i = new Intent(getApplicationContext(), MessagesActivity.class);
                                 startActivity(i);
                                 break;
-                            case 3:
+                            }
+
+                            case 3: {
                                 i = new Intent(getApplicationContext(), ContactsActivity.class);
                                 startActivity(i);
                                 break;
-                            case 4:
+                            }
+
+                            case 4: {
                                 i = new Intent(getApplicationContext(), ProfileActivity.class);
                                 startActivity(i);
                                 break;
+                            }
+
+                            case 5: {
+                                i = new Intent(getApplicationContext(), ClientsChargesActivity.class);
+                                startActivity(i);
+                                break;
+                            }
+
+                            case 6: {
+                                if ((CURENT_CLIENT.getAdmin()) && (SELECTED_CLIENT == null)) {
+                                    showSnackbar(findViewById(android.R.id.content), getString(R.string.warning_messag_select_client));
+                                    gvDashbord.setEnabled(true);
+                                    return;
+                                }
+                                i = new Intent(getApplicationContext(), AnnualChargesActivity.class);
+                                startActivity(i);
+                                break;
+                            }
+
+                            case 7: {
+                                i = new Intent(getApplicationContext(), SelectClientActivity.class);
+                                startActivity(i);
+                                break;
+                            }
                         }
 
                     } catch (Exception e) {

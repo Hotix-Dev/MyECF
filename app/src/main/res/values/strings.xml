@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">MyECF</string>
     <string name="error_message_something_wrong">Something went wrong!</string>
+    <string name="warning_messag_select_client">You have to select a client</string>
     <string name="text_login">LOGIN</string>
     <string name="hint_username">Username</string>
     <string name="hint_password">Password</string>
@@ -10,10 +11,13 @@
     <string name="all_yes">YES</string>
     <string name="all_cancel">CANCEL</string>
     <string name="error_message_field_required">This field is required!</string>
-    <string name="menu_my_statements">My Statements</string>
-    <string name="menu_my_messages">My Messages</string>
-    <string name="menu_my_contacts">My Contacts</string>
-    <string name="menu_my_profile">My Profile</string>
+    <string name="menu_my_statements">Statements</string>
+    <string name="menu_my_messages">Messages</string>
+    <string name="menu_my_contacts">Contacts</string>
+    <string name="menu_my_profile">Profile</string>
+    <string name="menu_clients_charges">Clients Charges</string>
+    <string name="menu_annual_charges">Annual Charges</string>
+    <string name="menu_select_client">Select Client</string>
     <string name="text_home">Home</string>
     <!-- to toggle the open close button of the navigation drawer -->
     <string name="nav_open">Open</string>
