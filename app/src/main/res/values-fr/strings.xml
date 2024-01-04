@@ -38,4 +38,18 @@
     <string name="menu_item_logout">Déconnexion</string>
     <string name="dialog_logout_title">Déconnexion</string>
     <string name="dialog_logout_text">Êtes-vous sûr de vouloir vous déconnecter?</string>
+    <string name="text_code">Code</string>
+    <string name="text_month_1">Janvier</string>
+    <string name="text_month_2">Février</string>
+    <string name="text_month_3">Mars</string>
+    <string name="text_month_4">Avril</string>
+    <string name="text_month_5">Mai</string>
+    <string name="text_month_6">Juin</string>
+    <string name="text_month_7">Juillet</string>
+    <string name="text_month_8">Août</string>
+    <string name="text_month_9">Septembre</string>
+    <string name="text_month_10">Octobre</string>
+    <string name="text_month_11">Novembre</string>
+    <string name="text_month_12">Décembre</string>
+    <string name="text_total">Total</string>
 </resources>

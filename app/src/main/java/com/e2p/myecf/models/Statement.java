@@ -26,12 +26,15 @@ public class Statement {
     @SerializedName("Column3")
     @Expose
     private Integer column3;
-    @SerializedName("Column4")
+    @SerializedName("Cloture")
     @Expose
-    private Boolean column4;
+    private Boolean cloture;
     @SerializedName("client_planning_a_p_ordre")
     @Expose
     private Integer client_planning_a_p_ordre;
+    @SerializedName("Column4")
+    @Expose
+    private Integer column4;
     @SerializedName("Column5")
     @Expose
     private Double column5;
@@ -54,7 +57,7 @@ public class Statement {
     public Statement() {
     }
 
-    public Statement(Integer ordre, String grpCode, String grpName, String column1, String column2, Integer exercice_id, Integer column3, Boolean column4, Integer client_planning_a_p_ordre, Double column5, String column6, Integer nbreDepot, String libelle1, String libelle2, String color) {
+    public Statement(Integer ordre, String grpCode, String grpName, String column1, String column2, Integer exercice_id, Integer column3, Boolean cloture, Integer client_planning_a_p_ordre, Integer column4, Double column5, String column6, Integer nbreDepot, String libelle1, String libelle2, String color) {
         this.ordre = ordre;
         this.grpCode = grpCode;
         this.grpName = grpName;
@@ -62,8 +65,9 @@ public class Statement {
         this.column2 = column2;
         this.exercice_id = exercice_id;
         this.column3 = column3;
-        this.column4 = column4;
+        this.cloture = cloture;
         this.client_planning_a_p_ordre = client_planning_a_p_ordre;
+        this.column4 = column4;
         this.column5 = column5;
         this.column6 = column6;
         this.nbreDepot = nbreDepot;
@@ -128,11 +132,15 @@ public class Statement {
         this.column3 = column3;
     }
 
-    public Boolean getColumn4() {
-        return column4;
+    public Boolean getCloture() {
+        return cloture;
     }
 
-    public void setColumn4(Boolean column4) {
+    public void setCloture(Boolean cloture) {
+        this.cloture = cloture;
+    }
+
+    public void setColumn4(Integer column4) {
         this.column4 = column4;
     }
 

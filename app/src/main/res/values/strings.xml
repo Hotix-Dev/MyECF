@@ -38,4 +38,18 @@
     <string name="menu_item_logout">Logout</string>
     <string name="dialog_logout_title">Logout</string>
     <string name="dialog_logout_text">Are you sure you want to log out?</string>
+    <string name="text_code">Code</string>
+    <string name="text_month_1">January</string>
+    <string name="text_month_2">February</string>
+    <string name="text_month_3">March</string>
+    <string name="text_month_4">April</string>
+    <string name="text_month_5">May</string>
+    <string name="text_month_6">June</string>
+    <string name="text_month_7">July</string>
+    <string name="text_month_8">August</string>
+    <string name="text_month_9">September</string>
+    <string name="text_month_10">October</string>
+    <string name="text_month_11">November</string>
+    <string name="text_month_12">December</string>
+    <string name="text_total">Total</string>
 </resources>

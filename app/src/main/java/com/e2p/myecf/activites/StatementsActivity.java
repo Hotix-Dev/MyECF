@@ -363,6 +363,7 @@ public class StatementsActivity extends AppCompatActivity {
 
         progressView.setVisibility(View.VISIBLE);
         emptyListView.setVisibility(View.GONE);
+        rvList.setVisibility(View.GONE);
 
         String URL = "Client/GetDeclarations?";
         RetrofitInterface service = RetrofitClient.getClientApi().create(RetrofitInterface.class);
@@ -400,9 +401,11 @@ public class StatementsActivity extends AppCompatActivity {
 
                     GroupAdapter _GroupAdapter = new GroupAdapter(_Groups);
                     rvList.setAdapter(_GroupAdapter);
+                    rvList.setVisibility(View.VISIBLE);
 
                 } else {
                     emptyListView.setVisibility(View.VISIBLE);
+                    rvList.setVisibility(View.GONE);
                     showSnackbar(findViewById(android.R.id.content), response.message());
                 }
             }
@@ -411,6 +414,7 @@ public class StatementsActivity extends AppCompatActivity {
             public void onFailure(Call<ArrayList<Statement>> call, Throwable t) {
                 progressView.setVisibility(View.GONE);
                 emptyListView.setVisibility(View.VISIBLE);
+                rvList.setVisibility(View.VISIBLE);
                 listView.setEmptyView(findViewById(R.id.empty_list_view));
             }
         });
