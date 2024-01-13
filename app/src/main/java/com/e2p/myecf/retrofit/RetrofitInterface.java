@@ -3,6 +3,7 @@ package com.e2p.myecf.retrofit;
 import com.e2p.myecf.models.AnnualCharge;
 import com.e2p.myecf.models.ChargeHandler;
 import com.e2p.myecf.models.Client;
+import com.e2p.myecf.models.ClientCharge;
 import com.e2p.myecf.models.Statement;
 
 import okhttp3.ResponseBody;
@@ -46,7 +47,7 @@ public interface RetrofitInterface {
 
     //Get All Annual Charges Details Call
     @GET
-    Call<ArrayList<AnnualCharge>> getAllAnnualChargesDetailsQuery(@Url String URL,
+    Call<ArrayList<ClientCharge>> getAllAnnualChargesDetailsQuery(@Url String URL,
                                                                   @Query("cabinetId") Integer cabinetId,
                                                                   @Query("exerciceId") Integer exerciceId,
                                                                   @Query("clientId") Integer clientId);

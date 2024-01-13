@@ -2,6 +2,7 @@ package com.e2p.myecf.helpers;
 
 import com.e2p.myecf.models.AnnualCharge;
 import com.e2p.myecf.models.Client;
+import com.e2p.myecf.models.ClientCharge;
 import com.e2p.myecf.models.DashItem;
 import com.e2p.myecf.models.Statement;
 
@@ -20,9 +21,10 @@ public class ConstantConfig {
     public static ArrayList<Statement> ALL_STATEMENTS = null;
     public static ArrayList<Client> ALL_CLIENTS = null;
     public static ArrayList<AnnualCharge> CLIENT_CHARGES = null;
-    public static ArrayList<AnnualCharge> CHARGES_DETAILS = null;
+    public static ArrayList<ClientCharge> ANNUAL_CHARGES = null;
     public static Client  CURENT_CLIENT = null;
     public static Client  SELECTED_CLIENT = null;
+    public static AnnualCharge  SELECTED_ANNUAL_CHARGE = null;
 
     public static Integer  CURENT_EXERCICE = 1970;
     public static Integer YEAR_0 = 1970;

@@ -3,11 +3,8 @@ package com.e2p.myecf.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class AnnualCharge {
+public class ClientCharge {
 
-    @SerializedName("Id")
-    @Expose
-    private Integer id;
     @SerializedName("CODE")
     @Expose
     private String code;
@@ -54,11 +51,10 @@ public class AnnualCharge {
     @Expose
     private Double total;
 
-    public AnnualCharge() {
+    public ClientCharge() {
     }
 
-    public AnnualCharge(Integer id, String code, String client, Double month_1, Double month_2, Double month_3, Double month_4, Double month_5, Double month_6, Double month_7, Double month_8, Double month_9, Double month_10, Double month_11, Double month_12, Double total) {
-        this.id = id;
+    public ClientCharge(String code, String client, Double month_1, Double month_2, Double month_3, Double month_4, Double month_5, Double month_6, Double month_7, Double month_8, Double month_9, Double month_10, Double month_11, Double month_12, Double total) {
         this.code = code;
         this.client = client;
         this.month_1 = month_1;
@@ -74,14 +70,6 @@ public class AnnualCharge {
         this.month_11 = month_11;
         this.month_12 = month_12;
         this.total = total;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getCode() {

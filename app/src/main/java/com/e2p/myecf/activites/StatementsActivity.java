@@ -406,7 +406,6 @@ public class StatementsActivity extends AppCompatActivity {
                 } else {
                     emptyListView.setVisibility(View.VISIBLE);
                     rvList.setVisibility(View.GONE);
-                    showSnackbar(findViewById(android.R.id.content), response.message());
                 }
             }
 

@@ -4,6 +4,7 @@ import static com.e2p.myecf.helpers.ConstantConfig.AB_TITLE;
 import static com.e2p.myecf.helpers.ConstantConfig.ALL_STATEMENTS;
 import static com.e2p.myecf.helpers.ConstantConfig.CLIENT_CHARGES;
 import static com.e2p.myecf.helpers.ConstantConfig.CURENT_EXERCICE;
+import static com.e2p.myecf.helpers.ConstantConfig.SELECTED_ANNUAL_CHARGE;
 import static com.e2p.myecf.helpers.ConstantConfig.SELECTED_CLIENT;
 import static com.e2p.myecf.helpers.Utils.showSnackbar;
 
@@ -70,7 +71,7 @@ public class ClientsChargesActivity extends AppCompatActivity {
         super.onResume();
 
         try {
-
+            SELECTED_ANNUAL_CHARGE = null;
         } catch (Exception e) {
             Log.e(TAG, e.toString());
             showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_something_wrong));
@@ -157,9 +158,11 @@ public class ClientsChargesActivity extends AppCompatActivity {
         emptyListView.setVisibility(View.GONE);
         nsvMain.setVisibility(View.GONE);
 
+        Calendar calendar = Calendar.getInstance();
+
         String URL = "Client/ChargeAnnuelleClient?";
         RetrofitInterface service = RetrofitClient.getClientApi().create(RetrofitInterface.class);
-        Call<ArrayList<AnnualCharge>> apiCall = service.getAllClientsChargesQuery(URL, 1, 2023);
+        Call<ArrayList<AnnualCharge>> apiCall = service.getAllClientsChargesQuery(URL, 1, calendar.get(Calendar.YEAR));
 
         apiCall.enqueue(new Callback<ArrayList<AnnualCharge>>() {
             @Override
@@ -238,7 +241,7 @@ public class ClientsChargesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    showSnackbar(findViewById(android.R.id.content), obj.getCode());
+                    SELECTED_ANNUAL_CHARGE = obj;
                 } catch (Exception e) {
                     showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_something_wrong));
                 } finally {

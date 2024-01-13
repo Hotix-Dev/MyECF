@@ -52,4 +52,5 @@
     <string name="text_month_11">November</string>
     <string name="text_month_12">December</string>
     <string name="text_total">Total</string>
+    <string name="error_select_client">Select Client</string>
 </resources>
