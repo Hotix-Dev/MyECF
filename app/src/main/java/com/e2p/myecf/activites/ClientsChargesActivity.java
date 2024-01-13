@@ -18,6 +18,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.NestedScrollView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -243,6 +244,8 @@ public class ClientsChargesActivity extends AppCompatActivity {
             public void onClick(View v) {
                 try {
                     SELECTED_ANNUAL_CHARGE = obj;
+                    Intent i = new Intent(getApplicationContext(), AnnualChargesActivity.class);
+                    startActivity(i);
                 } catch (Exception e) {
                     showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_something_wrong));
                 } finally {
