@@ -6,6 +6,7 @@ import static com.e2p.myecf.helpers.ConstantConfig.CLIENT_CHARGES;
 import static com.e2p.myecf.helpers.ConstantConfig.CURENT_EXERCICE;
 import static com.e2p.myecf.helpers.ConstantConfig.SELECTED_ANNUAL_CHARGE;
 import static com.e2p.myecf.helpers.ConstantConfig.SELECTED_CLIENT;
+import static com.e2p.myecf.helpers.ConstantConfig.YEAR_0;
 import static com.e2p.myecf.helpers.Utils.showSnackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -218,20 +219,20 @@ public class ClientsChargesActivity extends AppCompatActivity {
         tvCode.setText(obj.getCode());
         tvClient.setText(obj.getClient());
 
-        tvMonth_1.setText(String.valueOf(obj.getMonth_1()));
-        tvMonth_2.setText(String.valueOf(obj.getMonth_2()));
-        tvMonth_3.setText(String.valueOf(obj.getMonth_3()));
-        tvMonth_4.setText(String.valueOf(obj.getMonth_4()));
-        tvMonth_5.setText(String.valueOf(obj.getMonth_5()));
-        tvMonth_6.setText(String.valueOf(obj.getMonth_6()));
-        tvMonth_7.setText(String.valueOf(obj.getMonth_7()));
-        tvMonth_8.setText(String.valueOf(obj.getMonth_8()));
-        tvMonth_9.setText(String.valueOf(obj.getMonth_9()));
-        tvMonth_10.setText(String.valueOf(obj.getMonth_10()));
-        tvMonth_11.setText(String.valueOf(obj.getMonth_11()));
-        tvMonth_12.setText(String.valueOf(obj.getMonth_12()));
+        tvMonth_1.setText(String.valueOf(obj.getMonth_1().intValue()));
+        tvMonth_2.setText(String.valueOf(obj.getMonth_2().intValue()));
+        tvMonth_3.setText(String.valueOf(obj.getMonth_3().intValue()));
+        tvMonth_4.setText(String.valueOf(obj.getMonth_4().intValue()));
+        tvMonth_5.setText(String.valueOf(obj.getMonth_5().intValue()));
+        tvMonth_6.setText(String.valueOf(obj.getMonth_6().intValue()));
+        tvMonth_7.setText(String.valueOf(obj.getMonth_7().intValue()));
+        tvMonth_8.setText(String.valueOf(obj.getMonth_8().intValue()));
+        tvMonth_9.setText(String.valueOf(obj.getMonth_9().intValue()));
+        tvMonth_10.setText(String.valueOf(obj.getMonth_10().intValue()));
+        tvMonth_11.setText(String.valueOf(obj.getMonth_11().intValue()));
+        tvMonth_12.setText(String.valueOf(obj.getMonth_12().intValue()));
 
-        tvTotal.setText(String.valueOf(obj.getTotal()));
+        tvTotal.setText(String.valueOf(obj.getTotal().intValue()));
 
         TableRow tr = new TableRow(getApplicationContext());
         tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));

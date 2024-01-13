@@ -11,9 +11,12 @@
         android:background="@color/white"
         android:gravity="center"
         android:text="@string/text_code"
-        android:textColor="@color/colorSecondary"
-        android:textSize="@dimen/_8ssp"
-        android:textStyle="normal" />
+        android:scrollHorizontally="true"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/_10ssp"
+        android:textStyle="bold" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_table_row_client"
@@ -22,140 +25,179 @@
         android:background="@color/white"
         android:gravity="center"
         android:text="@string/text_client"
-        android:textColor="@color/colorSecondary"
-        android:textSize="@dimen/_8ssp"
-        android:textStyle="normal" />
+        android:scrollHorizontally="true"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/_10ssp"
+        android:textStyle="bold" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_table_row_month_1"
-        android:layout_width="@dimen/_80sdp"
+        android:layout_width="@dimen/_40sdp"
         android:layout_height="@dimen/_30sdp"
         android:background="@color/white"
         android:gravity="center"
         android:text="@string/text_month_1"
-        android:textColor="@color/colorSecondary"
-        android:textSize="@dimen/_8ssp"
+        android:scrollHorizontally="true"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_10ssp"
         android:textStyle="normal" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_table_row_month_2"
-        android:layout_width="@dimen/_80sdp"
+        android:layout_width="@dimen/_40sdp"
         android:layout_height="@dimen/_30sdp"
         android:background="@color/white"
         android:gravity="center"
         android:text="@string/text_month_2"
-        android:textColor="@color/colorSecondary"
-        android:textSize="@dimen/_8ssp"
+        android:scrollHorizontally="true"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_10ssp"
         android:textStyle="normal" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_table_row_month_3"
-        android:layout_width="@dimen/_80sdp"
+        android:layout_width="@dimen/_40sdp"
         android:layout_height="@dimen/_30sdp"
         android:background="@color/white"
         android:gravity="center"
         android:text="@string/text_month_3"
-        android:textColor="@color/colorSecondary"
-        android:textSize="@dimen/_8ssp"
+        android:scrollHorizontally="true"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_10ssp"
         android:textStyle="normal" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_table_row_month_4"
-        android:layout_width="@dimen/_80sdp"
+        android:layout_width="@dimen/_40sdp"
         android:layout_height="@dimen/_30sdp"
         android:background="@color/white"
         android:gravity="center"
         android:text="@string/text_month_4"
-        android:textColor="@color/colorSecondary"
-        android:textSize="@dimen/_8ssp"
+        android:scrollHorizontally="true"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_10ssp"
         android:textStyle="normal" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_table_row_month_5"
-        android:layout_width="@dimen/_80sdp"
+        android:layout_width="@dimen/_40sdp"
         android:layout_height="@dimen/_30sdp"
         android:background="@color/white"
         android:gravity="center"
         android:text="@string/text_month_5"
-        android:textColor="@color/colorSecondary"
-        android:textSize="@dimen/_8ssp"
+        android:scrollHorizontally="true"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_10ssp"
         android:textStyle="normal" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_table_row_month_6"
-        android:layout_width="@dimen/_80sdp"
+        android:layout_width="@dimen/_40sdp"
         android:layout_height="@dimen/_30sdp"
         android:background="@color/white"
         android:gravity="center"
         android:text="@string/text_month_6"
-        android:textColor="@color/colorSecondary"
-        android:textSize="@dimen/_8ssp"
+        android:scrollHorizontally="true"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_10ssp"
         android:textStyle="normal" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_table_row_month_7"
-        android:layout_width="@dimen/_80sdp"
+        android:layout_width="@dimen/_40sdp"
         android:layout_height="@dimen/_30sdp"
         android:background="@color/white"
         android:gravity="center"
         android:text="@string/text_month_7"
-        android:textColor="@color/colorSecondary"
-        android:textSize="@dimen/_8ssp"
+        android:scrollHorizontally="true"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_10ssp"
         android:textStyle="normal" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_table_row_month_8"
-        android:layout_width="@dimen/_80sdp"
+        android:layout_width="@dimen/_40sdp"
         android:layout_height="@dimen/_30sdp"
         android:background="@color/white"
         android:gravity="center"
         android:text="@string/text_month_8"
-        android:textColor="@color/colorSecondary"
-        android:textSize="@dimen/_8ssp"
+        android:scrollHorizontally="true"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_10ssp"
         android:textStyle="normal" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_table_row_month_9"
-        android:layout_width="@dimen/_80sdp"
+        android:layout_width="@dimen/_40sdp"
         android:layout_height="@dimen/_30sdp"
         android:background="@color/white"
         android:gravity="center"
         android:text="@string/text_month_9"
-        android:textColor="@color/colorSecondary"
-        android:textSize="@dimen/_8ssp"
+        android:scrollHorizontally="true"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_10ssp"
         android:textStyle="normal" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_table_row_month_10"
-        android:layout_width="@dimen/_80sdp"
+        android:layout_width="@dimen/_40sdp"
         android:layout_height="@dimen/_30sdp"
         android:background="@color/white"
         android:gravity="center"
         android:text="@string/text_month_10"
-        android:textColor="@color/colorSecondary"
-        android:textSize="@dimen/_8ssp"
+        android:scrollHorizontally="true"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_10ssp"
         android:textStyle="normal" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_table_row_month_11"
-        android:layout_width="@dimen/_80sdp"
+        android:layout_width="@dimen/_40sdp"
         android:layout_height="@dimen/_30sdp"
         android:background="@color/white"
         android:gravity="center"
         android:text="@string/text_month_11"
-        android:textColor="@color/colorSecondary"
-        android:textSize="@dimen/_8ssp"
+        android:scrollHorizontally="true"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_10ssp"
         android:textStyle="normal" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_table_row_month_12"
-        android:layout_width="@dimen/_80sdp"
+        android:layout_width="@dimen/_40sdp"
         android:layout_height="@dimen/_30sdp"
         android:background="@color/white"
         android:gravity="center"
         android:text="@string/text_month_12"
-        android:textColor="@color/colorSecondary"
-        android:textSize="@dimen/_8ssp"
+        android:scrollHorizontally="true"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_10ssp"
         android:textStyle="normal" />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -165,8 +207,11 @@
         android:background="@color/white"
         android:gravity="center"
         android:text="@string/text_total"
-        android:textColor="@color/colorSecondary"
-        android:textSize="@dimen/_8ssp"
+        android:scrollHorizontally="true"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_10ssp"
         android:textStyle="normal" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>
