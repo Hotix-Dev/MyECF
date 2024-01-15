@@ -1,25 +1,12 @@
 package com.e2p.myecf.activites;
 
 import static com.e2p.myecf.helpers.ConstantConfig.AB_TITLE;
-import static com.e2p.myecf.helpers.ConstantConfig.ALL_CLIENTS;
-import static com.e2p.myecf.helpers.ConstantConfig.ALL_STATEMENTS;
-import static com.e2p.myecf.helpers.ConstantConfig.CURENT_EXERCICE;
-import static com.e2p.myecf.helpers.ConstantConfig.SELECTED_CLIENT;
-import static com.e2p.myecf.helpers.ConstantConfig.YEAR_0;
-import static com.e2p.myecf.helpers.ConstantConfig.YEAR_1;
-import static com.e2p.myecf.helpers.ConstantConfig.YEAR_2;
-import static com.e2p.myecf.helpers.ConstantConfig.YEAR_3;
-import static com.e2p.myecf.helpers.Utils.collapse;
-import static com.e2p.myecf.helpers.Utils.expand;
 import static com.e2p.myecf.helpers.Utils.showSnackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.appcompat.widget.AppCompatImageButton;
-import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,29 +15,27 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ExpandableListView;
 import android.widget.RelativeLayout;
 
 import com.e2p.myecf.R;
 import com.e2p.myecf.adapters.ClientsAdapter;
-import com.e2p.myecf.adapters.GroupAdapter;
 import com.e2p.myecf.helpers.MySettings;
 import com.e2p.myecf.models.Client;
-import com.e2p.myecf.models.Statement;
-import com.e2p.myecf.models.StatementsGroup;
 import com.e2p.myecf.retrofit.RetrofitClient;
 import com.e2p.myecf.retrofit.RetrofitInterface;
 
+import org.apache.commons.net.ftp.FTPClient;
+
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SelectClientActivity extends AppCompatActivity {
+public class FilesActivity extends AppCompatActivity {
 
-    private static final String TAG = "SELECT_CLIENT_ACTIVITTY";
+    private static final String TAG = "FILES_ACTIVITTY";
 
     private Toolbar toolbar;
     private MySettings mySettings;
@@ -62,7 +47,7 @@ public class SelectClientActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select_client);
+        setContentView(R.layout.activity_files);
 
         bindViews();
         init();
@@ -87,14 +72,17 @@ public class SelectClientActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.clients_menu, menu);
+        getMenuInflater().inflate(R.menu.files_menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_refresh) {
-            loadeClients();
+        if (item.getItemId() == R.id.action_upload) {
+            uploadFile();
+            return true;
+        } else if (item.getItemId() == R.id.action_refresh) {
+            loadeFiles();
             return true;
         } else {
             return super.onOptionsItemSelected(item);
@@ -112,7 +100,7 @@ public class SelectClientActivity extends AppCompatActivity {
 
             btnEmptyViewRefresh = (AppCompatButton) findViewById(R.id.btn_empty_view_refresh);
 
-            rvList = (RecyclerView) findViewById(R.id.rv_clients);
+            rvList = (RecyclerView) findViewById(R.id.rv_files);
             rvList.setHasFixedSize(true);
             rvList.setLayoutManager(new LinearLayoutManager(this));
 
@@ -138,7 +126,7 @@ public class SelectClientActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     try {
-                        loadeClients();
+                        loadeFiles();
                     } catch (Exception e) {
                         showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_something_wrong));
                     } finally {
@@ -146,7 +134,7 @@ public class SelectClientActivity extends AppCompatActivity {
                 }
             });
 
-            loadeClients();
+            loadeFiles();
 
         } catch (Exception e) {
             Log.e(TAG, e.toString());
@@ -156,37 +144,79 @@ public class SelectClientActivity extends AppCompatActivity {
 
     /**********************************************************************************************/
 
-    private void loadeClients() {
+    private void loadeFiles() {
 
-        progressView.setVisibility(View.VISIBLE);
-        emptyListView.setVisibility(View.GONE);
+//        // Create an instance of FTPClient
+//        FTPClient ftp = new FTPClient();
+//
+//        try {
+//            // Establish a connection with the FTP URL
+//            ftp.connect("test.rebex.net");
+//            // Enter user details : user name and password
+//            boolean isSuccess = ftp.login("demo", "password");
+//
+//            if (isSuccess) {
+//                showSnackbar(findViewById(android.R.id.content), "Success");
+//                // Fetch the list of names of the files. In case of no files an
+//                // empty array is returned
+//                // String[] filesFTP = ftp.listNames();
+//                // int count = 1;
+//                // Iterate on the returned list to obtain name of each file
+//                //for (String file : filesFTP) {
+//                //    System.out.println("File " + count + " :" + file);
+//                //    count++;
+//                //}
+//            }
+//
+//            ftp.logout();
+//        }
+//        catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        finally {
+//            try {
+//                ftp.disconnect();
+//            }
+//            catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
 
-        String URL = "Client/GetClient";
-        RetrofitInterface service = RetrofitClient.getClientApi().create(RetrofitInterface.class);
-        Call<ArrayList<Client>> apiCall = service.getAllClientsQuery(URL);
 
-        apiCall.enqueue(new Callback<ArrayList<Client>>() {
-            @Override
-            public void onResponse(Call<ArrayList<Client>> call, Response<ArrayList<Client>> response) {
-                progressView.setVisibility(View.GONE);
-                if (response.raw().code() == 200) {
+//        progressView.setVisibility(View.VISIBLE);
+//        emptyListView.setVisibility(View.GONE);
+//
+//        String URL = "Client/GetClient";
+//        RetrofitInterface service = RetrofitClient.getClientApi().create(RetrofitInterface.class);
+//        Call<ArrayList<Client>> apiCall = service.getAllClientsQuery(URL);
+//
+//        apiCall.enqueue(new Callback<ArrayList<Client>>() {
+//            @Override
+//            public void onResponse(Call<ArrayList<Client>> call, Response<ArrayList<Client>> response) {
+//                progressView.setVisibility(View.GONE);
+//                if (response.raw().code() == 200) {
+//
+//                    ALL_CLIENTS = response.body();
+//
+//                    ClientsAdapter _ClientsAdapter = new ClientsAdapter(SelectClientActivity.this, ALL_CLIENTS);
+//                    rvList.setAdapter(_ClientsAdapter);
+//
+//                } else {
+//                    emptyListView.setVisibility(View.VISIBLE);
+//                    showSnackbar(findViewById(android.R.id.content), response.message());
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ArrayList<Client>> call, Throwable t) {
+//                progressView.setVisibility(View.GONE);
+//                emptyListView.setVisibility(View.VISIBLE);
+//            }
+//        });
+    }
 
-                    ALL_CLIENTS = response.body();
+    private void uploadFile() {
 
-                    ClientsAdapter _ClientsAdapter = new ClientsAdapter(SelectClientActivity.this, ALL_CLIENTS);
-                    rvList.setAdapter(_ClientsAdapter);
 
-                } else {
-                    emptyListView.setVisibility(View.VISIBLE);
-                    showSnackbar(findViewById(android.R.id.content), response.message());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ArrayList<Client>> call, Throwable t) {
-                progressView.setVisibility(View.GONE);
-                emptyListView.setVisibility(View.VISIBLE);
-            }
-        });
     }
 }

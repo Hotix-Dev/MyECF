@@ -53,4 +53,6 @@
     <string name="text_month_12">DÉC</string>
     <string name="text_total">Total</string>
     <string name="error_select_client">Sélectionnez un client</string>
+    <string name="upload">Upload</string>
+    <string name="menu_documents">Documents</string>
 </resources>

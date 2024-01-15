@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
@@ -49,7 +50,7 @@ public class ClientsAdapter extends RecyclerView.Adapter<ClientsAdapter.ItemView
             public void onClick(View v) {
                 SELECTED_CLIENT = model;
                 notifyItemChanged(holder.getAdapterPosition());
-                //((Activity)mContext).finish();
+                ((AppCompatActivity)mContext).finish();
             }
         });
     }

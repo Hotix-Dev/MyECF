@@ -136,8 +136,10 @@ public class DashboardActivity extends AppCompatActivity {
 
             dashItems.add(new DashItem(6, getString(R.string.menu_annual_charges), "exchange_rate"));
 
+            dashItems.add(new DashItem(7, getString(R.string.menu_documents), "folder"));
+
             if (CURENT_CLIENT.getAdmin()) {
-                dashItems.add(new DashItem(7, getString(R.string.menu_select_client), "recruitment"));
+                dashItems.add(new DashItem(8, getString(R.string.menu_select_client), "recruitment"));
             }
 
             mGridAdapter = new DashbordGridAdapter(getApplicationContext(), dashItems);
@@ -201,6 +203,17 @@ public class DashboardActivity extends AppCompatActivity {
                             }
 
                             case 7: {
+                                if ((CURENT_CLIENT.getAdmin()) && (SELECTED_CLIENT == null)) {
+                                    showSnackbar(findViewById(android.R.id.content), getString(R.string.warning_messag_select_client));
+                                    gvDashbord.setEnabled(true);
+                                    return;
+                                }
+                                i = new Intent(getApplicationContext(), FilesActivity.class);
+                                startActivity(i);
+                                break;
+                            }
+
+                            case 8: {
                                 i = new Intent(getApplicationContext(), SelectClientActivity.class);
                                 startActivity(i);
                                 break;
