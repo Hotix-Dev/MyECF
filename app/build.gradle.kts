@@ -58,6 +58,7 @@ dependencies {
     //____SpinKit - loading animations____//
     implementation("com.github.ybq:Android-SpinKit:1.4.0")
 
+    //____FTP____//
     implementation("commons-net:commons-net:3.10.0")
 
     testImplementation("junit:junit:4.13.2")

@@ -10,14 +10,18 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.e2p.myecf.R;
+import com.e2p.myecf.Utils.FtpManager;
+import com.e2p.myecf.Utils.ThreadManager;
 import com.e2p.myecf.adapters.ClientsAdapter;
 import com.e2p.myecf.helpers.MySettings;
 import com.e2p.myecf.models.Client;
@@ -28,6 +32,7 @@ import org.apache.commons.net.ftp.FTPClient;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.ThreadPoolExecutor;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -145,6 +150,19 @@ public class FilesActivity extends AppCompatActivity {
     /**********************************************************************************************/
 
     private void loadeFiles() {
+
+        FtpManager ftpManager = FtpManager.getInstance(false);
+        ThreadPoolExecutor threadPoolExecutor = ThreadManager.getInstance();
+        threadPoolExecutor.execute(() -> {
+            boolean isConnected = ftpManager.connect("test.rebex.net", 21, "demo", "password", false, "false");
+
+            if (isConnected) {
+                showSnackbar(findViewById(android.R.id.content), "Connected");
+            } else {
+                showSnackbar(findViewById(android.R.id.content), "Connection failed");
+            }
+        });
+
 
 //        // Create an instance of FTPClient
 //        FTPClient ftp = new FTPClient();
