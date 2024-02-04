@@ -1,8 +1,22 @@
 package com.e2p.myecf.activites;
 
 import static com.e2p.myecf.helpers.ConstantConfig.AB_TITLE;
+import static com.e2p.myecf.helpers.ConstantConfig.FTP_IS_CONECTED;
 import static com.e2p.myecf.helpers.Utils.showSnackbar;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.RelativeLayout;
+
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.LinearLayoutCompat;
@@ -10,33 +24,21 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
-
+import com.e2p.myecf.FTP.DownloadCommand;
+import com.e2p.myecf.FTP.FileCommand;
+import com.e2p.myecf.FTP.UploadCommand;
 import com.e2p.myecf.R;
 import com.e2p.myecf.Utils.FtpManager;
 import com.e2p.myecf.Utils.ThreadManager;
-import com.e2p.myecf.adapters.ClientsAdapter;
+import com.e2p.myecf.adapters.FtpFilesAdapter;
 import com.e2p.myecf.helpers.MySettings;
-import com.e2p.myecf.models.Client;
-import com.e2p.myecf.retrofit.RetrofitClient;
-import com.e2p.myecf.retrofit.RetrofitInterface;
 
-import org.apache.commons.net.ftp.FTPClient;
+import org.apache.commons.net.ftp.FTPFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.ThreadPoolExecutor;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class FilesActivity extends AppCompatActivity {
 
@@ -48,6 +50,13 @@ public class FilesActivity extends AppCompatActivity {
     private LinearLayoutCompat progressView;
     private AppCompatButton btnEmptyViewRefresh;
     private RecyclerView rvList;
+
+    FtpManager ftpManager = null;
+    ThreadPoolExecutor threadPoolExecutor = null;
+    private ActivityResultLauncher<Intent> createFileLauncher;
+    private String currentPath = "/";
+    private FTPFile selectFile;
+    private FileCommand currentCommand;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +136,11 @@ public class FilesActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+            createFileLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), this::handleCreateFileResult);
+
+            ftpManager = FtpManager.getInstance(false);
+            threadPoolExecutor = ThreadManager.getInstance();
+
             btnEmptyViewRefresh.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -149,92 +163,78 @@ public class FilesActivity extends AppCompatActivity {
 
     /**********************************************************************************************/
 
+
+    private void handleCreateFileResult(ActivityResult result) {
+        try {
+            if (result.getResultCode() == Activity.RESULT_OK) {
+                Intent data = result.getData();
+                if (data != null && currentCommand != null) {
+                    Uri uri = data.getData();
+                    if (currentCommand instanceof UploadCommand) {
+                        currentCommand.execute(uri, currentPath);
+                    } else if (currentCommand instanceof DownloadCommand) {
+                        String fullPath = currentPath.endsWith("/") ? currentPath + selectFile.getName() : currentPath + "/" + selectFile.getName();
+                        currentCommand.execute(uri, fullPath);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            showSnackbar(findViewById(android.R.id.content), e.getMessage());
+        }
+    }
+
     private void loadeFiles() {
 
-        FtpManager ftpManager = FtpManager.getInstance(false);
-        ThreadPoolExecutor threadPoolExecutor = ThreadManager.getInstance();
-        threadPoolExecutor.execute(() -> {
-            boolean isConnected = ftpManager.connect("test.rebex.net", 21, "demo", "password", false, "false");
+        progressView.setVisibility(View.VISIBLE);
+        emptyListView.setVisibility(View.GONE);
+        rvList.setVisibility(View.GONE);
 
-            if (isConnected) {
-                showSnackbar(findViewById(android.R.id.content), "Connected");
-            } else {
-                showSnackbar(findViewById(android.R.id.content), "Connection failed");
+        threadPoolExecutor.execute(() -> {
+            try {
+                FTP_IS_CONECTED = ftpManager.connect("41.228.164.76", 21, "myecf", "cfe@FTP", false, "false");
+
+                if (FTP_IS_CONECTED) {
+                    currentPath = currentPath.endsWith("/") ? currentPath : currentPath + "/";
+                    FTPFile[] files = ftpManager.listFiles(currentPath);
+                    runOnUiThread(() -> updateFileListView(files));
+
+                } else {
+                    showSnackbar(findViewById(android.R.id.content), "Connection failed");
+                    runOnUiThread(() -> updateFileListView(null));
+                }
+            } catch (IOException e) {
+                Log.e(TAG, "Error: " + e.getMessage(), e);
+                runOnUiThread(() -> updateFileListView(null));
+            } catch (Exception e) {
+                Log.e(TAG, "Error: " + e.getMessage(), e);
+                runOnUiThread(() -> updateFileListView(null));
             }
         });
+    }
 
+    private void updateFileListView(FTPFile[] files) {
 
-//        // Create an instance of FTPClient
-//        FTPClient ftp = new FTPClient();
-//
-//        try {
-//            // Establish a connection with the FTP URL
-//            ftp.connect("test.rebex.net");
-//            // Enter user details : user name and password
-//            boolean isSuccess = ftp.login("demo", "password");
-//
-//            if (isSuccess) {
-//                showSnackbar(findViewById(android.R.id.content), "Success");
-//                // Fetch the list of names of the files. In case of no files an
-//                // empty array is returned
-//                // String[] filesFTP = ftp.listNames();
-//                // int count = 1;
-//                // Iterate on the returned list to obtain name of each file
-//                //for (String file : filesFTP) {
-//                //    System.out.println("File " + count + " :" + file);
-//                //    count++;
-//                //}
-//            }
-//
-//            ftp.logout();
-//        }
-//        catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        finally {
-//            try {
-//                ftp.disconnect();
-//            }
-//            catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
+        progressView.setVisibility(View.GONE);
 
+        if ((files != null) && (files.length > 0)) {
+            emptyListView.setVisibility(View.GONE);
+            rvList.setVisibility(View.VISIBLE);
 
-//        progressView.setVisibility(View.VISIBLE);
-//        emptyListView.setVisibility(View.GONE);
-//
-//        String URL = "Client/GetClient";
-//        RetrofitInterface service = RetrofitClient.getClientApi().create(RetrofitInterface.class);
-//        Call<ArrayList<Client>> apiCall = service.getAllClientsQuery(URL);
-//
-//        apiCall.enqueue(new Callback<ArrayList<Client>>() {
-//            @Override
-//            public void onResponse(Call<ArrayList<Client>> call, Response<ArrayList<Client>> response) {
-//                progressView.setVisibility(View.GONE);
-//                if (response.raw().code() == 200) {
-//
-//                    ALL_CLIENTS = response.body();
-//
-//                    ClientsAdapter _ClientsAdapter = new ClientsAdapter(SelectClientActivity.this, ALL_CLIENTS);
-//                    rvList.setAdapter(_ClientsAdapter);
-//
-//                } else {
-//                    emptyListView.setVisibility(View.VISIBLE);
-//                    showSnackbar(findViewById(android.R.id.content), response.message());
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ArrayList<Client>> call, Throwable t) {
-//                progressView.setVisibility(View.GONE);
-//                emptyListView.setVisibility(View.VISIBLE);
-//            }
-//        });
+            FtpFilesAdapter _FtpFilesAdapter = new FtpFilesAdapter(FilesActivity.this, new ArrayList<FTPFile>(Arrays.asList(files)));
+            rvList.setAdapter(_FtpFilesAdapter);
+
+        } else {
+            emptyListView.setVisibility(View.VISIBLE);
+            rvList.setVisibility(View.GONE);
+        }
     }
 
     private void uploadFile() {
-
+        currentCommand = new UploadCommand(this, ftpManager, getContentResolver(), threadPoolExecutor);
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("*/*");
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        createFileLauncher.launch(intent);
 
     }
 }

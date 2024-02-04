@@ -92,6 +92,7 @@ public class LoginActivity extends AppCompatActivity {
             Log.e(TAG, e.toString());
             showSnackbar(findViewById(android.R.id.content), getString(R.string.error_message_something_wrong));
         }
+        super.onBackPressed();
     }
 
     /***************************************************************************************************/
@@ -122,7 +123,7 @@ public class LoginActivity extends AppCompatActivity {
         mInputValidation = new InputValidation(this);
 
         //loadeImage();
-        //etUsername.setText("admin");
+        etUsername.setText("admin");
 
         tvAppName.setText(R.string.app_name);
 

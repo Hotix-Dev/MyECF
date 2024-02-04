@@ -34,5 +34,7 @@ public class ConstantConfig {
 
     public static String  AB_TITLE = "";
 
+    public static boolean FTP_IS_CONECTED = false;
+
 }
 
