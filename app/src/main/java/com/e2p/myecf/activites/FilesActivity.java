@@ -6,8 +6,10 @@ import static com.e2p.myecf.helpers.Utils.showSnackbar;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,8 +19,10 @@ import android.widget.RelativeLayout;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -35,14 +39,20 @@ import com.e2p.myecf.helpers.MySettings;
 
 import org.apache.commons.net.ftp.FTPFile;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Objects;
 import java.util.concurrent.ThreadPoolExecutor;
 
 public class FilesActivity extends AppCompatActivity {
 
     private static final String TAG = "FILES_ACTIVITTY";
+    private static final int CAMERA_ID = 999;
 
     private Toolbar toolbar;
     private MySettings mySettings;
@@ -54,6 +64,7 @@ public class FilesActivity extends AppCompatActivity {
     FtpManager ftpManager = null;
     ThreadPoolExecutor threadPoolExecutor = null;
     private ActivityResultLauncher<Intent> createFileLauncher;
+    private ActivityResultLauncher<Intent> createCameraLauncher;
     private String currentPath = "/";
     private FTPFile selectFile;
     private FileCommand currentCommand;
@@ -93,7 +104,7 @@ public class FilesActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_upload) {
-            uploadFile();
+            startUploadFileDialog();
             return true;
         } else if (item.getItemId() == R.id.action_refresh) {
             loadeFiles();
@@ -137,6 +148,7 @@ public class FilesActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
 
             createFileLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), this::handleCreateFileResult);
+            createCameraLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), this::handleCameraResult);
 
             ftpManager = FtpManager.getInstance(false);
             threadPoolExecutor = ThreadManager.getInstance();
@@ -163,6 +175,36 @@ public class FilesActivity extends AppCompatActivity {
 
     /**********************************************************************************************/
 
+    private void startUploadFileDialog() {
+
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
+
+        View mView = getLayoutInflater().inflate(R.layout.dialog_upload_file, null);
+        AppCompatImageButton ibtnFile = (AppCompatImageButton) mView.findViewById(R.id.ibtn_dialog_upload_file_phone);
+        AppCompatImageButton ibtnCamera = (AppCompatImageButton) mView.findViewById(R.id.ibtn_dialog_upload_file_camera);
+
+        mBuilder.setView(mView);
+        mBuilder.setCancelable(false);
+        final AlertDialog dialog = mBuilder.create();
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.show();
+
+        ibtnFile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                uploadFile();
+                dialog.dismiss();
+            }
+        });
+
+        ibtnCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                uploadPhoto();
+                dialog.dismiss();
+            }
+        });
+    }
 
     private void handleCreateFileResult(ActivityResult result) {
         try {
@@ -176,6 +218,33 @@ public class FilesActivity extends AppCompatActivity {
                         String fullPath = currentPath.endsWith("/") ? currentPath + selectFile.getName() : currentPath + "/" + selectFile.getName();
                         currentCommand.execute(uri, fullPath);
                     }
+                }
+            }
+        } catch (Exception e) {
+            showSnackbar(findViewById(android.R.id.content), e.getMessage());
+        }
+    }
+
+    private void handleCameraResult(ActivityResult result) {
+        try {
+            if (result.getResultCode() == Activity.RESULT_OK) {
+                Intent data = result.getData();
+                if (data != null && currentCommand != null) {
+                    Bitmap photo = (Bitmap) data.getExtras().get("data");
+
+                    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+
+                    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                    photo.compress(Bitmap.CompressFormat.WEBP, 100, bytes);
+                    String path = MediaStore.Images.Media.insertImage(FilesActivity.this.getContentResolver(), photo, timeStamp, null);
+                    Uri uri = Uri.parse(path);
+                    if (currentCommand instanceof UploadCommand) {
+                        currentCommand.execute(uri, currentPath);
+                    } else if (currentCommand instanceof DownloadCommand) {
+                        String fullPath = currentPath.endsWith("/") ? currentPath + selectFile.getName() : currentPath + "/" + selectFile.getName();
+                        currentCommand.execute(uri, fullPath);
+                    }
+
                 }
             }
         } catch (Exception e) {
@@ -231,10 +300,16 @@ public class FilesActivity extends AppCompatActivity {
 
     private void uploadFile() {
         currentCommand = new UploadCommand(this, ftpManager, getContentResolver(), threadPoolExecutor);
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("*/*");
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        createFileLauncher.launch(intent);
-
+        Intent file_intent = new Intent(Intent.ACTION_GET_CONTENT);
+        file_intent.setType("*/*");
+        file_intent.addCategory(Intent.CATEGORY_OPENABLE);
+        createFileLauncher.launch(file_intent);
     }
+
+    private void uploadPhoto() {
+        currentCommand = new UploadCommand(this, ftpManager, getContentResolver(), threadPoolExecutor);
+        Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        createCameraLauncher.launch(camera_intent);
+    }
+
 }
